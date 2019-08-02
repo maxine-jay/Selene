@@ -4,12 +4,25 @@ package com.example.selene.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+
+@Entity(tableName = "DailyInputTable")
 public class DailyInput implements Parcelable {
 
-
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name="date")
     private String date;
+    @ColumnInfo(name="bleeding")
     private String bleeding;
+    @ColumnInfo(name="emotion")
     private String emotion;
+    @ColumnInfo(name="physical_feeling")
     private String physicalFeeling;
 
 
@@ -22,7 +35,9 @@ public class DailyInput implements Parcelable {
 
     }
 
+    @Ignore
     public DailyInput(){
+        //just here to set up using setters rather than parameters
 
     }
 
