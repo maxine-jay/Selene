@@ -16,5 +16,29 @@
     <string name="bleeding">Bleeding?</string>
     <string name="emotional_feeling">Emotional Feeling?</string>
     <string name="physical_feeling">Physical Feeling?</string>
+    <string name="title_activity_add_new_daily_input">AddNewDailyInputActivity</string>
+    <string name="back">Back</string>
 
+
+    <string-array name="emotions_array">
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Frustrated</item>
+        <item>Anxious</item>
+        <item>Disappointed</item>
+        <item>Excited</item>
+        <item>Confused</item>
+        <item>Apathetic</item>
+    </string-array>
+
+    <string-array name="physical_feelings_array">
+        <item>Headache</item>
+        <item>Cramps</item>
+        <item>Nausea</item>
+        <item>Tender Breasts</item>
+        <item>Muscular Ache</item>
+        <item>Tension</item>
+        <item>Tired</item>
+        <item>Nothing Unusual</item>
+    </string-array>
 </resources>

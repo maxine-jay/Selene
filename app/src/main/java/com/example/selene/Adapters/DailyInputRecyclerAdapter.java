@@ -15,16 +15,18 @@ import java.util.ArrayList;
 public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRecyclerAdapter.ViewHolder> {
 
         private ArrayList<DailyInput> mDailyInputs = new ArrayList<>();
+        private OnDailyInputListener mOnDailyInputListener;
 
-    public DailyInputRecyclerAdapter(ArrayList<DailyInput> dailyInputs) {
+    public DailyInputRecyclerAdapter(ArrayList<DailyInput> dailyInputs, OnDailyInputListener onDailyInputListener) {
             this.mDailyInputs = dailyInputs;
+            this.mOnDailyInputListener = onDailyInputListener;
         }
 
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_daily_data_item, parent, false);
-            return new ViewHolder(view);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_daily_input_item, parent, false);
+            return new ViewHolder(view, mOnDailyInputListener);
         }
 
         @Override
@@ -43,10 +45,11 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
             return mDailyInputs.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView date, bleeding, emotion, physical;
+            OnDailyInputListener onDailyInputListener;
 
-            public ViewHolder(@NonNull View itemView) {
+            public ViewHolder(@NonNull View itemView, OnDailyInputListener onDailyInputListener) {
                 super(itemView);
                 //sets views to textviews in item layout using their ids
                 date = itemView.findViewById(R.id.item_date);
@@ -54,6 +57,22 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
                 emotion = itemView.findViewById(R.id.item_emotion);
                 physical = itemView.findViewById(R.id.item_physical);
 
+                this.onDailyInputListener = onDailyInputListener;
+
+                itemView.setOnClickListener(this);
+
+
             }
+
+            @Override
+            public void onClick(View view) {
+
+                onDailyInputListener.onDailyInputClick(getAdapterPosition());
+
+            }
+        }
+
+        public interface OnDailyInputListener{
+        void onDailyInputClick(int position);
         }
 }

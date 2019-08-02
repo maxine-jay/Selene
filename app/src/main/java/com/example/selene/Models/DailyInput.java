@@ -1,7 +1,10 @@
 package com.example.selene.Models;
 
 
-public class DailyInput {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class DailyInput implements Parcelable {
 
 
     private String date;
@@ -24,6 +27,24 @@ public class DailyInput {
     }
 
 
+    protected DailyInput(Parcel in) {
+        date = in.readString();
+        bleeding = in.readString();
+        emotion = in.readString();
+        physicalFeeling = in.readString();
+    }
+
+    public static final Creator<DailyInput> CREATOR = new Creator<DailyInput>() {
+        @Override
+        public DailyInput createFromParcel(Parcel in) {
+            return new DailyInput(in);
+        }
+
+        @Override
+        public DailyInput[] newArray(int size) {
+            return new DailyInput[size];
+        }
+    };
 
     public String getDate() {
         return date;
@@ -59,5 +80,18 @@ public class DailyInput {
 
     public String toString(DailyInput dailyInput) {
         return dailyInput.getDate() + " " + dailyInput.getBleeding() + " " + dailyInput.getEmotion() + " " + dailyInput.getPhysicalFeeling() + "\n";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(date);
+        parcel.writeString(bleeding);
+        parcel.writeString(emotion);
+        parcel.writeString(physicalFeeling);
     }
 }
