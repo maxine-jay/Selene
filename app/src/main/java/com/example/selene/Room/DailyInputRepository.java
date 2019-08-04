@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.example.selene.Models.DailyInput;
+import com.example.selene.async.InsertAsyncTask;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class DailyInputRepository {
     }
 
     public void insertDailyInputTask(DailyInput dailyInput) {
+        new InsertAsyncTask(mDailyInputDatabase.getDailyInputDao()).execute(dailyInput);
 
     }
 

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.selene.Models.DailyInput;
+import com.example.selene.Room.DailyInputRepository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,9 +38,12 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     String mPhysical;
 
     ArrayList<DailyInput> mDailyInputs;
+    DailyInput newInput;
 
     private DailyInput mInitialDailyInput;
     private boolean isNewDailyInput;
+
+    private DailyInputRepository mDailyInputRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         mDailyInputs = new ArrayList<>();
 
-//        mDailyInputRepository = new DailyInputRepository(this);
+        mDailyInputRepository = new DailyInputRepository(this);
 
         dateView = findViewById(R.id.dateView);
         review = findViewById(R.id.review);
@@ -109,6 +113,18 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         }
 
     }
+
+//    private void saveChanges(){
+//        if(isNewDailyInput){
+//            saveNewDailyInput();
+//        }else{
+//
+//        }
+//    }
+//
+//    private void saveNewDailyInput(){
+//        mDailyInputRepository.insertDailyInputTask(mInitialDailyInput);
+//    }
 
 
     //DATEPICKERDIALOG
@@ -180,10 +196,12 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     public void onSaveButtonClicked(View view) {
 
-        DailyInput newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical);
+        newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical);
         mDailyInputs.add(newInput);
         review.setText(newInput.toString(newInput));
-//        mDailyInputRepository.insertDailyInputTask(newInput);
+        mDailyInputRepository.insertDailyInputTask(newInput);
+
+//        saveChanges();
 
         String final_selection;
         final_selection = "";

@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import com.example.selene.Adapters.DailyInputRecyclerAdapter;
 import com.example.selene.Models.DailyInput;
+import com.example.selene.Room.DailyInputRepository;
 import com.example.selene.Util.VerticalSpacingItemDecorator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DailyInputRecyclerAdapter.OnDailyInputListener {
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     private TextView mTextMessage;
     private ArrayList<DailyInput> mDailyInputs = new ArrayList<>();
     private DailyInputRecyclerAdapter mDailyInputRecyclerAdapter;
+    private DailyInputRepository mDailyInputRepository;
 
 
 
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         addNewButton = findViewById(R.id.button_addNew);
 
+        mDailyInputRepository = new DailyInputRepository(this);
+
         addNewButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent i = new Intent(MainActivity.this, DailyInputActivity.class);
@@ -76,9 +82,29 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         mRecyclerView = findViewById(R.id.recyclerView_dailyItems);
         initRecyclerView();
 
-        //Insert fake data to test
-        insertFakeDailyData();
+        //get daily inputs from database
+        retrieveDailyInputs();
 
+        //Insert fake data to test
+//        insertFakeDailyData();
+
+    }
+
+    private void retrieveDailyInputs(){
+        mDailyInputRepository.retrieveDailyInputTask().observe(this, new Observer<List<DailyInput>>() {
+            @Override
+            public void onChanged(List<DailyInput> dailyInputs) {
+
+                if(mDailyInputs.size()>0){
+                    mDailyInputs.clear();
+                }
+                if(dailyInputs != null){
+                    mDailyInputs.addAll(dailyInputs);
+                }
+                mDailyInputRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
     }
 
     private void insertFakeDailyData(){
