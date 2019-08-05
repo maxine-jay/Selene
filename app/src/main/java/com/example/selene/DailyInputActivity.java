@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.selene.Adapters.DailyInputRecyclerAdapter;
 import com.example.selene.Models.DailyInput;
 import com.example.selene.Room.DailyInputRepository;
 
@@ -29,7 +30,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     //UI elements
     TextView output, review, dateView;
     Spinner emotionSpinner, physicalFeelingSpinner;
-    Button selectDateButton, backButton;
+    Button selectDateButton, backButton, deleteInputButton, saveButton;
 
     //Vars
     String mBleeding;
@@ -44,6 +45,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private boolean isNewDailyInput;
 
     private DailyInputRepository mDailyInputRepository;
+    private DailyInputRecyclerAdapter mDailyInputRecycleradapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         output = findViewById(R.id.testOutput);
         selectDateButton = findViewById(R.id.btn_selectDate);
         backButton = findViewById(R.id.backButton);
+        deleteInputButton = findViewById(R.id.btn_delete);
 
         //destroys activity on selection of back button
         //needs to be clear to user that any input will be destroyed
@@ -104,13 +107,15 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         if (getIncomingIntent()) {
             //new daily input incoming (should allow for NEW INPUT)
-            //currently there is nothing here...but it's working. should add in some code???
+
             setNewDailyInputProperties();
 
         } else {
             //already existing input incoming (should allow for EDIT)
             setExistingDailyInputProperties();
         }
+
+
 
     }
 
@@ -249,4 +254,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         selectDateButton.setVisibility(View.GONE);
 
     }
+
+
 }

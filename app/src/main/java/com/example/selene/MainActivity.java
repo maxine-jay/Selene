@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
 
     //UI components
     private RecyclerView mRecyclerView;
-    Button addNewButton;
+    private Button addNewButton;
+
 
     //vars
     private TextView mTextMessage;
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
 
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         mRecyclerView.addItemDecoration(itemDecorator);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);
         mDailyInputRecyclerAdapter = new DailyInputRecyclerAdapter(mDailyInputs, this);
         mRecyclerView.setAdapter(mDailyInputRecyclerAdapter);
     }
@@ -138,6 +141,25 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         Intent intent = new Intent(this, DailyInputActivity.class);
         intent.putExtra("selected_input", mDailyInputs.get(position));
         startActivity(intent);
+    }
+
+    private ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            deleteDailyInput(mDailyInputs.get(viewHolder.getAdapterPosition()));
+
+        }
+    };
+
+    private void deleteDailyInput(DailyInput dailyInput){
+        mDailyInputs.remove(dailyInput);
+        mDailyInputRecyclerAdapter.notifyDataSetChanged();
+        mDailyInputRepository.deleteDailyInput(dailyInput);
     }
 
 }

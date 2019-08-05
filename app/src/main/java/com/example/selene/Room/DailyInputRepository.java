@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.example.selene.Models.DailyInput;
+import com.example.selene.async.DeleteAsyncTask;
 import com.example.selene.async.InsertAsyncTask;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class DailyInputRepository {
     }
 
     public void deleteDailyInput(DailyInput dailyInput) {
+        new DeleteAsyncTask(mDailyInputDatabase.getDailyInputDao()).execute(dailyInput);
 
     }
 }
