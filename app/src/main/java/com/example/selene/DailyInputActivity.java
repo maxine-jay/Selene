@@ -1,6 +1,7 @@
 package com.example.selene;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.selene.Adapters.DailyInputRecyclerAdapter;
 import com.example.selene.Models.DailyInput;
 import com.example.selene.Room.DailyInputRepository;
 
@@ -27,25 +27,33 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     private static final String TAG = "DailyInputActivity";
 
-    //UI elements
-    TextView output, review, dateView;
+    //UI
+    TextView output, review, dateView, enterEmotionTextView, enterPhysicalTextView;
     Spinner emotionSpinner, physicalFeelingSpinner;
-    Button selectDateButton, backButton, deleteInputButton, saveButton;
+    Button selectDateButton, backButton, saveButton;
+    CheckBox bleedingCheckBox;
 
     //Vars
     String mBleeding;
     String mDate;
     String mEmotion;
     String mPhysical;
-
     ArrayList<DailyInput> mDailyInputs;
+
     DailyInput newInput;
 
-    private DailyInput mInitialDailyInput;
+    private DailyInput mIncomingDailyInput;
     private boolean isNewDailyInput;
 
     private DailyInputRepository mDailyInputRepository;
-    private DailyInputRecyclerAdapter mDailyInputRecycleradapter;
+
+    private int mode;
+
+    private static final int EDIT_MODE_ENABLED = 1;
+    private static final int EDIT_MODE_DISABLED =0;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +68,12 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         review = findViewById(R.id.review);
         output = findViewById(R.id.testOutput);
         selectDateButton = findViewById(R.id.btn_selectDate);
-        backButton = findViewById(R.id.backButton);
-        deleteInputButton = findViewById(R.id.btn_delete);
+        backButton = findViewById(R.id.btn_back);
+        enterEmotionTextView = findViewById(R.id.enterEmotion);
+        enterPhysicalTextView = findViewById(R.id.enterPhysical);
+        bleedingCheckBox = findViewById(R.id.cb_bleeding);
+        saveButton = findViewById(R.id.btn_save);
+
 
         //destroys activity on selection of back button
         //needs to be clear to user that any input will be destroyed
@@ -93,11 +105,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                         if (checked) {
                             mBleeding = "Bleeding";
                             Log.d("IS_BLEEDING", mBleeding);
-                        } else if (!checked) {
-                            mBleeding = "Not Bleeding";
                         } else {
-                            mBleeding = "No input for bleeding";
-
+                            mBleeding = "Not Bleeding";
                         }
 
                     }
@@ -108,11 +117,13 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         if (getIncomingIntent()) {
             //new daily input incoming (should allow for NEW INPUT)
 
-            setNewDailyInputProperties();
+            setNewDailyInputFields();
+            enableEditMode();
 
         } else {
             //already existing input incoming (should allow for EDIT)
-            setExistingDailyInputProperties();
+            setExistingDailyInputFields();
+            disableEditMode();
         }
 
 
@@ -180,12 +191,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         switch (adapterView.getId()) {
             case R.id.emotion_spinner:
                 Log.d("EMOTION_SPINNER_SLCT", adapterView.getSelectedItem().toString());
-//                review.setText("Emotion " + adapterView.getSelectedItem().toString());
                 mEmotion = adapterView.getSelectedItem().toString();
                 break;
             case R.id.physical_spinner:
                 Log.d("PHYSICAL_SPINNER_SLCT", adapterView.getSelectedItem().toString());
-//                review.setText("Physical " + adapterView.getSelectedItem().toString());
                 mPhysical = adapterView.getSelectedItem().toString();
                 break;
         }
@@ -208,31 +217,31 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
 //        saveChanges();
 
-        String final_selection;
-        final_selection = "";
+        // this was used to check whether inputs were going into array
+//        String final_selection;
+//        final_selection = "";
 
-        for (DailyInput di : mDailyInputs) {
-            final_selection += (di.toString(di)) + "\n";
-
-
-        }
-
-        if (mDailyInputs.size() > 0) {
-
-            output.append(final_selection);
-
-        } else {
-            output.append("No data selected");
-        }
+//        for (DailyInput di : mDailyInputs) {
+//            final_selection += (di.toString(di)) + "\n";
+//
+//
+//        }
+//
+//        if (mDailyInputs.size() > 0) {
+//
+//            output.append(final_selection);
+//
+//        } else {
+//            output.append("No data selected");
+//        }
 
 
     }
 
-
+    //checks if the intent from main activity is a new input or previously inputted
     private boolean getIncomingIntent() {
         if (getIntent().hasExtra("selected_input")) {
-            mInitialDailyInput = getIntent().getParcelableExtra("selected_input");
-
+            mIncomingDailyInput = getIntent().getParcelableExtra("selected_input");
             isNewDailyInput = false;
             return false;
         }
@@ -241,17 +250,57 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         return true;
     }
 
-    private void setNewDailyInputProperties() {
+    private void setNewDailyInputFields() {
         //sets specified fields for a new input
+
         dateView.setText("Please select a date");
+
     }
 
-    private void setExistingDailyInputProperties() {
+    private void setExistingDailyInputFields() {
         //sets specified fields for an already existing input. does not allow date change - can assume date is correct.
         //this means that the user cannot enter duplicate entries for one date...
 
-        dateView.setText(mInitialDailyInput.getDate());
+        String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
+                + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"
+                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling();
+
+        dateView.setText(mIncomingDailyInput.getDate());
+        output.setText(viewModeDailyInputData);
+        output.setBackgroundColor(Color.parseColor("#4CAF50"));
+
+
+
+
+
+
+    }
+
+    private void enableEditMode(){
+        selectDateButton.setVisibility(View.VISIBLE);
+        bleedingCheckBox.setVisibility(View.VISIBLE);
+        enterEmotionTextView.setVisibility(View.VISIBLE);
+        enterPhysicalTextView.setVisibility(View.VISIBLE);
+        emotionSpinner.setVisibility(View.VISIBLE);
+        physicalFeelingSpinner.setVisibility(View.VISIBLE);
+        review.setVisibility(View.VISIBLE);
+        saveButton.setVisibility(View.VISIBLE);
+
+        mode = EDIT_MODE_ENABLED;
+
+    }
+
+    private void disableEditMode(){
         selectDateButton.setVisibility(View.GONE);
+        bleedingCheckBox.setVisibility(View.GONE);
+        enterEmotionTextView.setVisibility(View.GONE);
+        enterPhysicalTextView.setVisibility(View.GONE);
+        emotionSpinner.setVisibility(View.GONE);
+        physicalFeelingSpinner.setVisibility(View.GONE);
+        review.setVisibility(View.GONE);
+        saveButton.setVisibility(View.GONE);
+
+        mode = EDIT_MODE_DISABLED;
 
     }
 
