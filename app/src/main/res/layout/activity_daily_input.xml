@@ -8,105 +8,103 @@
     android:orientation="vertical"
     tools:context=".DailyInputActivity">
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/dateView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:hint="Please select a date..." />
+
+            <Button
+                android:id="@+id/btn_selectDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:text="@string/select_date" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_bleeding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bleeding" />
+
 
         <TextView
-            android:id="@+id/dateView"
-            android:layout_width="wrap_content"
+            android:id="@+id/enterEmotion"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Please select a date..."
-            android:layout_weight="70"/>
+            android:text="@string/please_enter_an_emotional_feeling" />
 
-        <Button
-            android:id="@+id/btn_selectDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select_date"
-            android:layout_weight="30"/>
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/cb_bleeding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bleeding" />
-
-
-    <TextView
-        android:id="@+id/enterEmotion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/please_enter_an_emotional_feeling" />
-
-    <Spinner
-        android:id="@+id/emotion_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:dropDownWidth="match_parent"
-        android:entries="@array/emotions_array"
-        android:spinnerMode="dropdown" />
-
-
-    <TextView
-        android:id="@+id/enterPhysical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/please_enter_a_physical_feeling"
-        />
-
-    <Spinner
-        android:id="@+id/physical_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dropDownWidth="match_parent"
-        android:entries="@array/physical_feelings_array"
-
-        android:spinnerMode="dropdown" />
-
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/emotion_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:onClick="onSaveButtonClicked"
-            android:text="@string/save" />
+            android:dropDownWidth="match_parent"
+            android:entries="@array/emotions_array"
+            android:spinnerMode="dropdown" />
 
 
-
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/enterPhysical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit" />
-    </FrameLayout>
+            android:text="@string/please_enter_a_physical_feeling" />
+
+        <Spinner
+            android:id="@+id/physical_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/physical_feelings_array"
+
+            android:spinnerMode="dropdown" />
 
 
-    <TextView
-        android:id="@+id/review"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/testOutput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
+                android:onClick="onSaveButtonClicked"
+                android:text="@string/save" />
+
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/testOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
 

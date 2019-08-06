@@ -40,6 +40,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     String mPhysical;
     ArrayList<DailyInput> mDailyInputs;
 
+    String isBleeding = "Bleeding";
+    String isNotBleeding = "Not Bleeding";
+
     private DailyInput newInput;
     private DailyInput mIncomingDailyInput;
     private boolean isNewDailyInput;
@@ -109,11 +112,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                     @Override
                     public void onClick(View view) {
                         boolean checked = ((CheckBox) view).isChecked();
-
                         if (checked) {
-                            mBleeding = "Bleeding";
+                            mBleeding = isBleeding;
                         } else {
-                            mBleeding = "Not Bleeding";
+                            mBleeding = isNotBleeding;
                         }
 
                     }
@@ -142,7 +144,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
             saveNewDailyInput();
         }else{
             newInput.setDate(mIncomingDailyInput.getDate());
-
             updateDailyInput();
         }
     }
@@ -277,6 +278,11 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         //sets specified fields for a new input
 
         dateView.setText("Please select a date");
+        //if user does not check bleeding checkbox it can be assumed that they mean they are not bleeding,
+        //this can be changed by editing the input
+        while(mBleeding == null){
+            mBleeding = isNotBleeding;
+        }
 
 
     }
@@ -311,11 +317,13 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         }
 
 
-
-
-
-
-
+        String checkBleeding = mIncomingDailyInput.getBleeding();
+        if(checkBleeding == null || bleedingCheckBox.equals(isNotBleeding)){
+            bleedingCheckBox.setChecked(false);
+        }
+        else if(checkBleeding.equals(isBleeding)){
+            bleedingCheckBox.setChecked(true);
+        }
 
 
     }
@@ -331,22 +339,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         saveButton.setVisibility(View.VISIBLE);
 
     }
-//
-//    private void enableInitialEditMode(){
-//        selectDateButton.setVisibility(View.VISIBLE);
-//        bleedingCheckBox.setVisibility(View.VISIBLE);
-//        enterEmotionTextView.setVisibility(View.VISIBLE);
-//        enterPhysicalTextView.setVisibility(View.VISIBLE);
-//        emotionSpinner.setVisibility(View.VISIBLE);
-//        physicalFeelingSpinner.setVisibility(View.VISIBLE);
-//        review.setVisibility(View.VISIBLE);
-//        editButton.setVisibility(View.GONE);
-//        saveButton.setVisibility(View.VISIBLE);
-
-//
-//        mode = EDIT_MODE_ENABLED;
-//
-//    }
 
     private void disableEditMode(){
         selectDateButton.setVisibility(View.GONE);

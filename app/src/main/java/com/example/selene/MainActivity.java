@@ -164,4 +164,5 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         mDailyInputRepository.deleteDailyInput(dailyInput);
     }
 
+
 }
