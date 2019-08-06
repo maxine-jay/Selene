@@ -17,7 +17,7 @@ public interface DailyInputDao {
     @Insert
     void insertDailyInput(DailyInput... dailyInputs);
 
-    @Query("SELECT * FROM DailyInputTable")
+    @Query("SELECT * FROM DailyInputTable ORDER BY date DESC")
     LiveData<List<DailyInput>> getDailyInputs();
 
     @Update

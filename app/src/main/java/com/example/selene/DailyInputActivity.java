@@ -159,7 +159,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-        mDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+        mDate = String.format("%d-%02d-%02d", year, (month +1), dayOfMonth);
         dateView.setText(mDate);
 
     }
