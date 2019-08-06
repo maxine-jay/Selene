@@ -157,8 +157,10 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     };
 
     private void deleteDailyInput(DailyInput dailyInput){
+        //remove from array
         mDailyInputs.remove(dailyInput);
         mDailyInputRecyclerAdapter.notifyDataSetChanged();
+        //remove from database
         mDailyInputRepository.deleteDailyInput(dailyInput);
     }
 

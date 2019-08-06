@@ -16,7 +16,7 @@
     <string name="bleeding">Bleeding?</string>
     <string name="emotional_feeling">Emotional Feeling?</string>
     <string name="physical_feeling">Physical Feeling?</string>
-    <string name="title_activity_add_new_daily_input">AddNewDailyInputActivity</string>
+    <string name="title_activity_add_new_daily_input"></string>
     <string name="back">Back</string>
 
 
