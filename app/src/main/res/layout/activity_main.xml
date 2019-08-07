@@ -19,6 +19,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:layout_marginBottom="24dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_dailyItems"
+        app:layout_constraintEnd_toStartOf="@+id/button_addNew"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="goToCalendar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_dailyItems"
         android:layout_width="match_parent"

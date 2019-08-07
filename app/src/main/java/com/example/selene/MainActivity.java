@@ -165,4 +165,9 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     }
 
 
+    public void goToCalendar(View view) {
+        Intent i = new Intent(MainActivity.this, CalendarActivity.class);
+        startActivity(i);
+
+    }
 }

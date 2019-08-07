@@ -312,36 +312,15 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         output.setText(viewModeDailyInputData);
 //        output.setBackgroundColor(Color.parseColor("#4CAF50"));
 
-        //sets spinner to selected value
-        String emotionCompare = mIncomingDailyInput.getEmotion();
-        ArrayAdapter<CharSequence> emotionAdapter = ArrayAdapter.createFromResource(this, R.array.emotions_array, android.R.layout.simple_spinner_item);
-        emotionSpinner.setAdapter(emotionAdapter);
-        if(emotionCompare != null){
-            int emotionSpinnerPosition = emotionAdapter.getPosition(emotionCompare);
-            emotionSpinner.setSelection(emotionSpinnerPosition);
-        }
+        //sets spinners to previously selected values
+        setSpinnersToPreviouslySelectedValues();
 
-        String physicalCompare = mIncomingDailyInput.getPhysicalFeeling();
-        ArrayAdapter<CharSequence> physicalAdapter = ArrayAdapter.createFromResource(this, R.array.physical_feelings_array, android.R.layout.simple_spinner_item);
-        physicalFeelingSpinner.setAdapter(physicalAdapter);
-        if(physicalCompare != null){
-            int physicalSpinnerPosition = physicalAdapter.getPosition(physicalCompare);
-            physicalFeelingSpinner.setSelection(physicalSpinnerPosition);
-        }
+        //sets checkbox to previously selected value
+        setBleedingCheckBoxToPreviouslySelectedValue();
 
 
-        String checkBleeding = mIncomingDailyInput.getBleeding();
-        if(checkBleeding == null || checkBleeding.equals(isNotBleeding)){
-            bleedingCheckBox.setChecked(false);
-            mBleeding = isNotBleeding;
 
 
-        }
-        else if(checkBleeding.equals(isBleeding)){
-            bleedingCheckBox.setChecked(true);
-            mBleeding = isBleeding;
-
-        }
 
 
 
@@ -375,6 +354,39 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         mode = EDIT_MODE_DISABLED;
 
+    }
+
+    private void setSpinnersToPreviouslySelectedValues(){
+        String emotionCompare = mIncomingDailyInput.getEmotion();
+        ArrayAdapter<CharSequence> emotionAdapter = ArrayAdapter.createFromResource(this, R.array.emotions_array, android.R.layout.simple_spinner_item);
+        emotionSpinner.setAdapter(emotionAdapter);
+        if(emotionCompare != null){
+            int emotionSpinnerPosition = emotionAdapter.getPosition(emotionCompare);
+            emotionSpinner.setSelection(emotionSpinnerPosition);
+        }
+
+        String physicalCompare = mIncomingDailyInput.getPhysicalFeeling();
+        ArrayAdapter<CharSequence> physicalAdapter = ArrayAdapter.createFromResource(this, R.array.physical_feelings_array, android.R.layout.simple_spinner_item);
+        physicalFeelingSpinner.setAdapter(physicalAdapter);
+        if(physicalCompare != null){
+            int physicalSpinnerPosition = physicalAdapter.getPosition(physicalCompare);
+            physicalFeelingSpinner.setSelection(physicalSpinnerPosition);
+        }
+    }
+
+    private void setBleedingCheckBoxToPreviouslySelectedValue(){
+        String checkBleeding = mIncomingDailyInput.getBleeding();
+        if(checkBleeding == null || checkBleeding.equals(isNotBleeding)){
+            bleedingCheckBox.setChecked(false);
+            mBleeding = isNotBleeding;
+
+
+        }
+        else if(checkBleeding.equals(isBleeding)){
+            bleedingCheckBox.setChecked(true);
+            mBleeding = isBleeding;
+
+        }
     }
 
 
