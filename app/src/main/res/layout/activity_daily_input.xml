@@ -65,14 +65,14 @@
             android:layout_height="wrap_content"
             android:text="@string/please_enter_a_physical_feeling" />
 
-        <Spinner
-            android:id="@+id/physical_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/physical_feelings_array"
+    <Spinner
+        android:id="@+id/physical_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="match_parent"
+        android:entries="@array/physical_feelings_array"
 
-            android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown" />
 
 
         <FrameLayout

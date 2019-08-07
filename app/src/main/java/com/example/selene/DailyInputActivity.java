@@ -280,8 +280,11 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         dateView.setText("Please select a date");
         //if user does not check bleeding checkbox it can be assumed that they mean they are not bleeding,
         //this can be changed by editing the input
-        while(mBleeding == null){
+        if (mBleeding == null){
             mBleeding = isNotBleeding;
+        }
+        else{
+            mBleeding = isBleeding;
         }
 
 
@@ -296,8 +299,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                 + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling();
 
         dateView.setText(mIncomingDailyInput.getDate());
+        mDate = mIncomingDailyInput.getDate();
         output.setText(viewModeDailyInputData);
-        output.setBackgroundColor(Color.parseColor("#4CAF50"));
+//        output.setBackgroundColor(Color.parseColor("#4CAF50"));
 
         //sets spinner to selected value
         String emotionCompare = mIncomingDailyInput.getEmotion();
@@ -318,12 +322,19 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
 
         String checkBleeding = mIncomingDailyInput.getBleeding();
-        if(checkBleeding == null || bleedingCheckBox.equals(isNotBleeding)){
+        if(checkBleeding == null || checkBleeding.equals(isNotBleeding)){
             bleedingCheckBox.setChecked(false);
+            mBleeding = isNotBleeding;
+
+
         }
         else if(checkBleeding.equals(isBleeding)){
             bleedingCheckBox.setChecked(true);
+            mBleeding = isBleeding;
+
         }
+
+
 
 
     }
