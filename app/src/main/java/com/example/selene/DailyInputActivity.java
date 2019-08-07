@@ -14,8 +14,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.selene.Models.DailyInput;
+import com.example.selene.Room.DailyInputDao;
+import com.example.selene.Room.DailyInputDatabase;
 import com.example.selene.Room.DailyInputRepository;
 
 import java.util.ArrayList;
@@ -39,6 +42,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     String mEmotion;
     String mPhysical;
     ArrayList<DailyInput> mDailyInputs;
+    ArrayList<String> mDates;
 
     String isBleeding = "Bleeding";
     String isNotBleeding = "Not Bleeding";
@@ -61,6 +65,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_input);
+
 
         mDailyInputs = new ArrayList<>();
 
@@ -176,6 +181,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         mDate = String.format("%d-%02d-%02d", year, (month +1), dayOfMonth);
         dateView.setText(mDate);
+
+
+
+
 
     }
 
@@ -367,6 +376,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         mode = EDIT_MODE_DISABLED;
 
     }
+
 
 
 }

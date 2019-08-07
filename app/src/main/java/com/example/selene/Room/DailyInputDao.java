@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.selene.Models.DailyInput;
 
+
 import java.util.List;
 
 @Dao
@@ -25,4 +26,6 @@ public interface DailyInputDao {
 
     @Delete
     int delete(DailyInput... dailyInputs);
+
+
 }
