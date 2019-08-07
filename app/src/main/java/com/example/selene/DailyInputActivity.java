@@ -110,6 +110,18 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
             }
         });
 
+        saveButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical);
+                mDailyInputs.add(newInput);
+                review.setText(newInput.toString(newInput));
+
+                saveChanges();
+            }
+        });
+
 
         //BLEEDING CHECKBOX ONCLICKLISTENER
         findViewById(R.id.cb_bleeding).setOnClickListener(
@@ -182,10 +194,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         mDate = String.format("%d-%02d-%02d", year, (month +1), dayOfMonth);
         dateView.setText(mDate);
 
-
-
-
-
     }
 
     public void setUpSpinners() {
@@ -232,16 +240,16 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     }
 
 
-    public void onSaveButtonClicked(View view) {
-
-        newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical);
-        mDailyInputs.add(newInput);
-        review.setText(newInput.toString(newInput));
+//    public void onSaveButtonClicked(View view) {
+//
+//        newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical);
+//        mDailyInputs.add(newInput);
+//        review.setText(newInput.toString(newInput));
 
         //this is where we save the note
 //        mDailyInputRepository.insertDailyInputTask(newInput);
 
-        saveChanges();
+//        saveChanges();
 
         // this was used to check whether inputs were going into array
 //        String final_selection;
@@ -262,7 +270,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 //        }
 
 
-    }
+//    }
 
     //checks if the intent from main activity is a new input or previously inputted
     private boolean getIncomingIntent() {
