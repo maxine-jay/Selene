@@ -247,9 +247,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         emotionSpinner = findViewById(R.id.emotion_spinner);
         emotionSpinner.setOnItemSelectedListener(this);
 
-
+        //uses array and spinner item layout to fill spinner
         ArrayAdapter<CharSequence> emotionsAdapter = ArrayAdapter.createFromResource(this,
-                R.array.emotions_array, android.R.layout.simple_spinner_item);
+                R.array.emotions_array, R.layout.spinner_row_item);
         emotionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         emotionSpinner.setAdapter(emotionsAdapter);
 
@@ -257,7 +257,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         physicalFeelingSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> physicalAdapter = ArrayAdapter.createFromResource(this,
-                R.array.physical_feelings_array, android.R.layout.simple_spinner_item);
+                R.array.physical_feelings_array, R.layout.spinner_row_item);
         emotionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         physicalFeelingSpinner.setAdapter(physicalAdapter);
 
