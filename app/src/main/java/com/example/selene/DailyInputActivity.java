@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,8 +57,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private boolean isNewDailyInput;
 
     private DailyInputRepository mDailyInputRepository;
-
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -115,7 +114,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //destroys activity on selection of back button
         //needs to be clear to user that any input will be destroyed
-        backButton.setOnClickListener(new View.OnClickListener(){
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -140,27 +139,23 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
             }
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener(){
+        saveButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical, mNote);
-                mDailyInputs.add(newInput);
-                output.setText(newInput.toString(newInput));
-
-                saveChanges();
+                checkDateAndSave();
             }
         });
 
         finishNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(enterNote.length() > 0){
+                if (enterNote.length() > 0) {
                     mNote = enterNote.getText().toString();
                     //hides keyboard and cursor
                     enterNote.setEnabled(false);
-                }else{
+                } else {
                     mNote = "No note added for " + mDate;
                     //hides keyboard and cursor
                     enterNote.setEnabled(false);
@@ -200,23 +195,22 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         }
 
 
-
     }
 
-    private void saveChanges(){
-        if(isNewDailyInput){
+    private void saveChanges() {
+        if (isNewDailyInput) {
             saveNewDailyInput();
-        }else{
+        } else {
             newInput.setDate(mIncomingDailyInput.getDate());
             updateDailyInput();
         }
     }
 
-    private void saveNewDailyInput(){
+    private void saveNewDailyInput() {
         mDailyInputRepository.insertDailyInputTask(newInput);
     }
 
-    private void updateDailyInput(){
+    private void updateDailyInput() {
 
         mDailyInputRepository.updateDailyInput(newInput);
     }
@@ -238,7 +232,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-        mDate = String.format("%d-%02d-%02d", year, (month +1), dayOfMonth);
+        mDate = String.format("%d-%02d-%02d", year, (month + 1), dayOfMonth);
         dateView.setText(mDate);
 
     }
@@ -314,10 +308,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         dateView.setText(selectDate);
         //if user does not check bleeding checkbox it can be assumed that they mean they are not bleeding,
         //this can be changed by editing the input
-        if (mBleeding == null){
+        if (mBleeding == null) {
             mBleeding = isNotBleeding;
-        }
-        else{
+        } else {
             mBleeding = isBleeding;
         }
 
@@ -347,7 +340,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     }
 
-    private void enableEditMode(){
+    private void enableEditMode() {
         bleedingCheckBox.setVisibility(View.VISIBLE);
         enterEmotionTextView.setVisibility(View.VISIBLE);
         enterPhysicalTextView.setVisibility(View.VISIBLE);
@@ -359,7 +352,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     }
 
-    private void disableEditMode(){
+    private void disableEditMode() {
         selectDateButton.setVisibility(View.GONE);
         bleedingCheckBox.setVisibility(View.GONE);
         enterEmotionTextView.setVisibility(View.GONE);
@@ -373,11 +366,11 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         finishNoteButton.setVisibility(View.GONE);
     }
 
-    private void setSpinnersToPreviouslySelectedValues(){
+    private void setSpinnersToPreviouslySelectedValues() {
         String emotionCompare = mIncomingDailyInput.getEmotion();
         ArrayAdapter<CharSequence> emotionAdapter = ArrayAdapter.createFromResource(this, R.array.emotions_array, android.R.layout.simple_spinner_item);
         emotionSpinner.setAdapter(emotionAdapter);
-        if(emotionCompare != null){
+        if (emotionCompare != null) {
             int emotionSpinnerPosition = emotionAdapter.getPosition(emotionCompare);
             emotionSpinner.setSelection(emotionSpinnerPosition);
         }
@@ -385,25 +378,38 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         String physicalCompare = mIncomingDailyInput.getPhysicalFeeling();
         ArrayAdapter<CharSequence> physicalAdapter = ArrayAdapter.createFromResource(this, R.array.physical_feelings_array, android.R.layout.simple_spinner_item);
         physicalFeelingSpinner.setAdapter(physicalAdapter);
-        if(physicalCompare != null){
+        if (physicalCompare != null) {
             int physicalSpinnerPosition = physicalAdapter.getPosition(physicalCompare);
             physicalFeelingSpinner.setSelection(physicalSpinnerPosition);
         }
     }
 
-    private void setBleedingCheckBoxToPreviouslySelectedValue(){
+    private void setBleedingCheckBoxToPreviouslySelectedValue() {
         String checkBleeding = mIncomingDailyInput.getBleeding();
-        if(checkBleeding == null || checkBleeding.equals(isNotBleeding)){
+        if (checkBleeding == null || checkBleeding.equals(isNotBleeding)) {
             bleedingCheckBox.setChecked(false);
             mBleeding = isNotBleeding;
-        }
-        else if(checkBleeding.equals(isBleeding)){
+        } else if (checkBleeding.equals(isBleeding)) {
             bleedingCheckBox.setChecked(true);
             mBleeding = isBleeding;
         }
     }
 
+    private void checkDateAndSave() {
+        Context context = getApplicationContext();
+        CharSequence text = "You must pick a date!";
+        int duration = Toast.LENGTH_SHORT;
 
+        if (mDate == null) {
+            Toast pickDate = Toast.makeText(context, text, duration);
+            pickDate.show();
+        } else {
+            newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical, mNote);
+            mDailyInputs.add(newInput);
+            output.setText(newInput.toString(newInput));
 
+            saveChanges();
 
+        }
+    }
 }
