@@ -49,14 +49,16 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    item.setChecked(false);
+                    break;
+                case R.id.navigation_add_new:
+                    Intent intentAddNew = new Intent(MainActivity.this, DailyInputActivity.class);
+                    startActivity(intentAddNew);
+                    break;
+                case R.id.navigation_calendar:
+                    Intent intentCalendar = new Intent(MainActivity.this, CalendarActivity.class);
+                    startActivity(intentCalendar);
+                    break;
             }
             return false;
         }
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

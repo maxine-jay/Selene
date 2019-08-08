@@ -1,106 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/daily_input_activity_linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".DailyInputActivity">
 
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back" />
-
     <LinearLayout
+        android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:orientation="vertical"
+        android:layout_marginBottom="192dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/dateView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:hint="Please select a date..." />
+
+            <Button
+                android:id="@+id/btn_selectDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:text="@string/select_date" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_bleeding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bleeding" />
+
 
         <TextView
-            android:id="@+id/dateView"
-            android:layout_width="wrap_content"
+            android:id="@+id/enterEmotion"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="70"
-            android:hint="Please select a date..." />
+            android:text="@string/please_enter_an_emotional_feeling" />
 
-        <Button
-            android:id="@+id/btn_selectDate"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/emotion_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
-            android:text="@string/select_date" />
+
+            android:dropDownWidth="match_parent"
+            android:entries="@array/emotions_array"
+            android:spinnerMode="dropdown" />
+
+
+        <TextView
+            android:id="@+id/enterPhysical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_enter_a_physical_feeling" />
+
+        <Spinner
+            android:id="@+id/physical_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/physical_feelings_array"
+
+            android:spinnerMode="dropdown" />
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save" />
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/testOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/cb_bleeding"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bleeding" />
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/enterEmotion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/please_enter_an_emotional_feeling" />
-
-    <Spinner
-        android:id="@+id/emotion_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:dropDownWidth="match_parent"
-        android:entries="@array/emotions_array"
-        android:spinnerMode="dropdown" />
-
-
-    <TextView
-        android:id="@+id/enterPhysical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/please_enter_a_physical_feeling" />
-
-    <Spinner
-        android:id="@+id/physical_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dropDownWidth="match_parent"
-        android:entries="@array/physical_feelings_array"
-
-        android:spinnerMode="dropdown" />
-
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save" />
-
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit" />
-    </FrameLayout>
-
-
-    <TextView
-        android:id="@+id/review"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/testOutput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-</LinearLayout>

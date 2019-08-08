@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 
+import java.util.Calendar;
+
 import pl.rafman.scrollcalendar.ScrollCalendar;
 import pl.rafman.scrollcalendar.contract.DateWatcher;
 import pl.rafman.scrollcalendar.contract.MonthScrollListener;
@@ -17,6 +19,8 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+
 
 
 
@@ -33,8 +37,15 @@ public class CalendarActivity extends AppCompatActivity {
             public int getStateForDate(int year, int month, int day) {
 
                 //this circles every single day!
+                Calendar today = Calendar.getInstance();
 
-                return CalendarDay.TODAY;
+                if (year == today.get(Calendar.YEAR) && month == today.get(Calendar.MONTH) && day == today.get(Calendar.DAY_OF_MONTH)) {
+
+                    return CalendarDay.TODAY;
+                }else {
+
+                    return CalendarDay.DEFAULT;
+                }
             }
         });
 

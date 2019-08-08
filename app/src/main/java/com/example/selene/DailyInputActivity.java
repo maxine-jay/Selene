@@ -1,9 +1,10 @@
 package com.example.selene;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,13 +14,14 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-
 import com.example.selene.Models.DailyInput;
 import com.example.selene.Room.DailyInputDao;
 import com.example.selene.Room.DailyInputDatabase;
 import com.example.selene.Room.DailyInputRepository;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,7 +61,27 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private static final int EDIT_MODE_DISABLED =0;
 
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    Intent intentHome = new Intent(DailyInputActivity.this, MainActivity.class);
+                    startActivity(intentHome);
+                    break;
+                case R.id.navigation_add_new:
+
+                    break;
+                case R.id.navigation_calendar:
+                    Intent intentCalendar = new Intent(DailyInputActivity.this, CalendarActivity.class);
+                    startActivity(intentCalendar);
+                    break;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +103,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         bleedingCheckBox = findViewById(R.id.cb_bleeding);
         saveButton = findViewById(R.id.btn_save);
         editButton = findViewById(R.id.btn_edit);
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
         //destroys activity on selection of back button
