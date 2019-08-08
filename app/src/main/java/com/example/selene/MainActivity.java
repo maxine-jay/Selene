@@ -112,18 +112,6 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         });
     }
 
-    private void insertFakeDailyData(){
-
-        for (int i =0; i<100;i++){
-            DailyInput dailyInput = new DailyInput();
-            dailyInput.setDate("Date " + i + "/2019");
-            dailyInput.setBleeding("Bleeding " +i);
-            dailyInput.setEmotion("Emotion " + i);
-            dailyInput.setPhysicalFeeling("Physical " + i);
-            mDailyInputs.add(dailyInput);
-        }
-        mDailyInputRecyclerAdapter.notifyDataSetChanged();
-    }
 
     private void initRecyclerView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

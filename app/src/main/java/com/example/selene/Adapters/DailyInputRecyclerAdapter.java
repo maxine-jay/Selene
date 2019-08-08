@@ -36,6 +36,7 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
             holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
             holder.emotion.setText(mDailyInputs.get(i).getEmotion());
             holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
+            holder.note.setText(mDailyInputs.get(i).getNote());
 
         }
 
@@ -46,7 +47,7 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            TextView date, bleeding, emotion, physical;
+            TextView date, bleeding, emotion, physical, note;
             OnDailyInputListener onDailyInputListener;
 
             public ViewHolder(@NonNull View itemView, OnDailyInputListener onDailyInputListener) {
@@ -56,6 +57,8 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
                 bleeding = itemView.findViewById(R.id.item_bleeding);
                 emotion = itemView.findViewById(R.id.item_emotion);
                 physical = itemView.findViewById(R.id.item_physical);
+                note = itemView.findViewById(R.id.item_note);
+
 
                 this.onDailyInputListener = onDailyInputListener;
 

@@ -40,4 +40,12 @@
         android:text="@string/physical_feeling"
         android:textColor="@color/black" />
 
+    <TextView
+        android:id="@+id/item_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/note"
+        android:textColor="@color/black" />
+
 </LinearLayout>

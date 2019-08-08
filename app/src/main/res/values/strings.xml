@@ -18,28 +18,48 @@
     <string name="physical_feeling">Physical Feeling?</string>
     <string name="title_activity_add_new_daily_input"></string>
     <string name="back">Back</string>
+    <string name="note">Note?</string>
 
 
     <string-array name="emotions_array">
         <item>Happy</item>
+        <item>Content</item>
+        <item>At Peace</item>
+        <item>Excited</item>
+        <item>Full</item>
+        <item>Joyful</item>
+        <item>Restless</item>
+        <item>Scattered</item>
+        <item>Grounded</item>
         <item>Sad</item>
         <item>Frustrated</item>
         <item>Anxious</item>
+        <item>Resilient</item>
         <item>Disappointed</item>
-        <item>Excited</item>
         <item>Confused</item>
         <item>Apathetic</item>
+        <item>Doubtful</item>
+        <item>Empty</item>
+        <item>Resentful</item>
+        <item>Worried</item>
+        <item>None</item>
+
     </string-array>
 
     <string-array name="physical_feelings_array">
         <item>Headache</item>
+        <item>Low Energy</item>
+        <item>High Energy</item>
+        <item>Trouble Sleeping</item>
+        <item>Groggy</item>
+        <item>Backache</item>
         <item>Cramps</item>
         <item>Nausea</item>
-        <item>Tender Breasts</item>
-        <item>Muscular Ache</item>
+        <item>Digestive Upsets</item>
+        <item>Breast Tenderness</item>
         <item>Tension</item>
         <item>Tired</item>
-        <item>Nothing Unusual</item>
+        <item>None</item>
     </string-array>
 
 </resources>

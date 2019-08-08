@@ -5,10 +5,12 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.selene.Models.DailyInput;
 
-@Database(entities = {DailyInput.class}, version = 1)
+@Database(entities = {DailyInput.class}, version = 2)
 public abstract class DailyInputDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "dailyInput_db";
@@ -21,10 +23,21 @@ public abstract class DailyInputDatabase extends RoomDatabase {
                     context.getApplicationContext(),
                     DailyInputDatabase.class,
                     DATABASE_NAME
-            ).build();
+            ).addMigrations(MIGRATION_1_2)
+                    .build();
         }
         return instance;
     }
 
     public abstract DailyInputDao getDailyInputDao();
+
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE DailyInputTable"
+                    + " ADD COLUMN note TEXT");
+        }
+    };
+
 }

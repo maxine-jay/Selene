@@ -26,12 +26,18 @@ public class DailyInput implements Parcelable {
     private String physicalFeeling;
 
 
-    public DailyInput(String date, String bleeding, String emotion, String physicalFeeling) {
+
+    @ColumnInfo(name = "note")
+    private String note;
+
+
+    public DailyInput(String date, String bleeding, String emotion, String physicalFeeling, String note) {
 
         this.date = date;
         this.bleeding = bleeding;
         this.emotion = emotion;
         this.physicalFeeling = physicalFeeling;
+        this.note = note;
 
     }
 
@@ -47,6 +53,7 @@ public class DailyInput implements Parcelable {
         bleeding = in.readString();
         emotion = in.readString();
         physicalFeeling = in.readString();
+        note = in.readString();
     }
 
     public static final Creator<DailyInput> CREATOR = new Creator<DailyInput>() {
@@ -93,11 +100,20 @@ public class DailyInput implements Parcelable {
         this.physicalFeeling = physicalFeeling;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public String toString(DailyInput dailyInput) {
         return "Date: " + dailyInput.getDate()
                 + "\n" + dailyInput.getBleeding()
                 + "\n Emotional feeling: " + dailyInput.getEmotion()
-                + "\n Physical Feeling " + dailyInput.getPhysicalFeeling() + "\n";
+                + "\n Physical Feeling: " + dailyInput.getPhysicalFeeling()
+                + "\n Note: " + dailyInput.getNote();
     }
 
     @Override
@@ -111,5 +127,6 @@ public class DailyInput implements Parcelable {
         parcel.writeString(bleeding);
         parcel.writeString(emotion);
         parcel.writeString(physicalFeeling);
+        parcel.writeString(note);
     }
 }
