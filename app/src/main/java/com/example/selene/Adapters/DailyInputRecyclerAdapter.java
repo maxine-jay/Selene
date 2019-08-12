@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRecyclerAdapter.ViewHolder> {
 
-        private ArrayList<DailyInput> mDailyInputs = new ArrayList<>();
+        private ArrayList<DailyInput> mDailyInputs;
         private OnDailyInputListener mOnDailyInputListener;
 
     public DailyInputRecyclerAdapter(ArrayList<DailyInput> dailyInputs, OnDailyInputListener onDailyInputListener) {
@@ -32,7 +32,7 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
 
-            holder.date.setText(mDailyInputs.get(i).getDate());
+            holder.date.setText(mDailyInputs.get(i).getDate().toString());
             holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
             holder.emotion.setText(mDailyInputs.get(i).getEmotion());
             holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());

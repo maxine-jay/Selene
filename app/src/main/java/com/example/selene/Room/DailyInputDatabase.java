@@ -2,15 +2,19 @@ package com.example.selene.Room;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.selene.Models.DailyInput;
 
-@Database(entities = {DailyInput.class}, version = 2)
+@Database(entities = {DailyInput.class}, version = 3)
+@TypeConverters({Converters.class})
 public abstract class DailyInputDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "dailyInput_db";
@@ -23,7 +27,7 @@ public abstract class DailyInputDatabase extends RoomDatabase {
                     context.getApplicationContext(),
                     DailyInputDatabase.class,
                     DATABASE_NAME
-            ).addMigrations(MIGRATION_1_2)
+            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build();
         }
         return instance;
@@ -37,6 +41,19 @@ public abstract class DailyInputDatabase extends RoomDatabase {
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE DailyInputTable"
                     + " ADD COLUMN note TEXT");
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration (2,3) {
+
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("DROP TABLE DailyInputTable");
+
+            database.execSQL("CREATE TABLE DailyInputTable_New(date INTEGER NOT NULL, bleeding TEXT, emotion TEXT, physical_feeling TEXT, note TEXT, PRIMARY KEY(date))");
+
+
+            database.execSQL("ALTER TABLE DailyInputTable_New RENAME TO DailyInputTable");
         }
     };
 

@@ -10,6 +10,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 
 @Entity(tableName = "DailyInputTable")
 public class DailyInput implements Parcelable {
@@ -17,21 +19,18 @@ public class DailyInput implements Parcelable {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name="date")
-    private String date;
+    private Date date;
     @ColumnInfo(name="bleeding")
     private String bleeding;
     @ColumnInfo(name="emotion")
     private String emotion;
     @ColumnInfo(name="physical_feeling")
     private String physicalFeeling;
-
-
-
     @ColumnInfo(name = "note")
     private String note;
 
 
-    public DailyInput(String date, String bleeding, String emotion, String physicalFeeling, String note) {
+    public DailyInput(Date date, String bleeding, String emotion, String physicalFeeling, String note) {
 
         this.date = date;
         this.bleeding = bleeding;
@@ -47,9 +46,9 @@ public class DailyInput implements Parcelable {
 
     }
 
-
+    //read from parcel
     protected DailyInput(Parcel in) {
-        date = in.readString();
+        date = new Date(in.readLong());
         bleeding = in.readString();
         emotion = in.readString();
         physicalFeeling = in.readString();
@@ -68,11 +67,11 @@ public class DailyInput implements Parcelable {
         }
     };
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -123,7 +122,8 @@ public class DailyInput implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(date);
+        //convert date to long
+        parcel.writeLong(date.getTime());
         parcel.writeString(bleeding);
         parcel.writeString(emotion);
         parcel.writeString(physicalFeeling);

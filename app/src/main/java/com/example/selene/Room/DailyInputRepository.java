@@ -10,6 +10,7 @@ import com.example.selene.async.InsertAsyncTask;
 import com.example.selene.async.UpdateAsyncTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DailyInputRepository {
@@ -36,6 +37,11 @@ public class DailyInputRepository {
 
     public void deleteDailyInput(DailyInput dailyInput) {
         new DeleteAsyncTask(mDailyInputDatabase.getDailyInputDao()).execute(dailyInput);
+
+    }
+
+    public LiveData<List<DailyInput>> retrieveBleedingInputTask(){
+        return mDailyInputDatabase.getDailyInputDao().getBleedingInputs();
 
     }
 

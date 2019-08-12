@@ -22,7 +22,7 @@ public class UpdateAsyncTask extends AsyncTask<DailyInput, Void, Void> {
     @Override
     protected Void doInBackground(DailyInput... dailyInputs) {
         Log.d(TAG, "doInBackground: thread" + Thread.currentThread().getName());
-        mDailyInputDao.update(dailyInputs);
+        mDailyInputDao.update(new DailyInput());
         return null;
     }
 }

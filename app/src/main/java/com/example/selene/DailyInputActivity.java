@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 import com.example.selene.Models.DailyInput;
 import com.example.selene.Room.DailyInputDao;
@@ -28,9 +29,12 @@ import com.example.selene.Room.DailyInputDatabase;
 import com.example.selene.Room.DailyInputRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 
 public class DailyInputActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
@@ -46,7 +50,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private CheckBox bleedingCheckBox;
 
     //Vars
-    private String mBleeding, mDate, mEmotion, mPhysical, mNote;
+    private String mBleeding, mEmotion, mPhysical, mNote;
+    private Date mDate;
 
     private ArrayList<DailyInput> mDailyInputs;
 
@@ -232,8 +237,30 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-        mDate = String.format("%d-%02d-%02d", year, (month + 1), dayOfMonth);
-        dateView.setText(mDate);
+//        Long dateFromPicker = new Long(year + month + dayOfMonth);
+//        mDate = (dateFromPicker);
+//
+//        dateView.setText(mDate.toString());
+
+//        mDate = year + month + dayOfMonth;
+//        mDate = new Date(year, month, dayOfMonth);
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        mDate = calendar.getTime();
+
+        Log.d(TAG, mDate.toString());
+        dateView.setText(mDate.toString());
+
+
+
 
     }
 
@@ -326,7 +353,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                 + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling()
                 + "Note: " + mIncomingDailyInput.getNote();
 
-        dateView.setText(mIncomingDailyInput.getDate());
+        dateView.setText(mIncomingDailyInput.getDate().toString());
         mDate = mIncomingDailyInput.getDate();
         output.setText(viewModeDailyInputData);
         enterNote.setText(mIncomingDailyInput.getNote());

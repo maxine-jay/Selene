@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Dao
 public interface DailyInputDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertDailyInput(DailyInput... dailyInputs);
 
     @Query("SELECT * FROM DailyInputTable ORDER BY date DESC")
@@ -26,6 +27,9 @@ public interface DailyInputDao {
 
     @Delete
     int delete(DailyInput... dailyInputs);
+
+    @Query("SELECT * FROM DailyInputTable WHERE bleeding = 'Bleeding'")
+    LiveData<List<DailyInput>> getBleedingInputs();
 
 
 }
