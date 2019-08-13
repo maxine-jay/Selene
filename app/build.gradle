@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     //Room
-    def room_version = "2.2.0-alpha01" // 2.1.0 for latest stable version
+    def room_version = "2.1.0" // 2.1.0 for latest stable version
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 

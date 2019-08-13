@@ -350,7 +350,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
                 + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"
-                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling()
+                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling()+ "\n"
                 + "Note: " + mIncomingDailyInput.getNote();
 
         dateView.setText(mIncomingDailyInput.getDate().toString());
@@ -376,6 +376,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         editButton.setVisibility(View.GONE);
         saveButton.setVisibility(View.VISIBLE);
         enterNote.setVisibility(View.VISIBLE);
+        finishNoteButton.setVisibility(View.VISIBLE);
 
     }
 
@@ -395,7 +396,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     private void setSpinnersToPreviouslySelectedValues() {
         String emotionCompare = mIncomingDailyInput.getEmotion();
-        ArrayAdapter<CharSequence> emotionAdapter = ArrayAdapter.createFromResource(this, R.array.emotions_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> emotionAdapter = ArrayAdapter.createFromResource(this, R.array.emotions_array, android.R.layout.simple_spinner_dropdown_item);
         emotionSpinner.setAdapter(emotionAdapter);
         if (emotionCompare != null) {
             int emotionSpinnerPosition = emotionAdapter.getPosition(emotionCompare);
@@ -403,7 +404,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         }
 
         String physicalCompare = mIncomingDailyInput.getPhysicalFeeling();
-        ArrayAdapter<CharSequence> physicalAdapter = ArrayAdapter.createFromResource(this, R.array.physical_feelings_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> physicalAdapter = ArrayAdapter.createFromResource(this, R.array.physical_feelings_array, android.R.layout.simple_spinner_dropdown_item);
         physicalFeelingSpinner.setAdapter(physicalAdapter);
         if (physicalCompare != null) {
             int physicalSpinnerPosition = physicalAdapter.getPosition(physicalCompare);
