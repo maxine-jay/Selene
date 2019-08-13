@@ -1,4 +1,4 @@
-package com.example.selene.Room;
+package com.example.selene.room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.selene.Models.DailyInput;
+import com.example.selene.models.DailyInput;
 
 
 import java.util.List;

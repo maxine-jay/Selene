@@ -1,4 +1,4 @@
-package com.example.selene.Room;
+package com.example.selene.room;
 
 import androidx.room.TypeConverter;
 
@@ -7,11 +7,21 @@ import java.util.Date;
 public class Converters {
     @TypeConverter
     public static Date fromTimeStamp(Long value){
-        return value == null ? null : new Date(value);
+        if (value == null){
+            return null;
+        }
+        else {
+            return new Date(value);
+        }
     }
 
     @TypeConverter
     public static Long dateToTimestamp(Date date){
-        return date == null ? null : date.getTime();
+        if (date == null) {
+            return null;
+        }
+        else {
+            return date.getTime();
+        }
     }
 }

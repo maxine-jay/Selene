@@ -1,4 +1,4 @@
-package com.example.selene.Room;
+package com.example.selene.room;
 
 import android.content.Context;
 
@@ -11,7 +11,8 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.selene.Models.DailyInput;
+import com.example.selene.models.DailyInput;
+import com.example.selene.room.DailyInputDao;
 
 @Database(entities = {DailyInput.class}, version = 3)
 @TypeConverters({Converters.class})

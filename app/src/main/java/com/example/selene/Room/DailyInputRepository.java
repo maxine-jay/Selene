@@ -1,10 +1,11 @@
-package com.example.selene.Room;
+package com.example.selene.room;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.selene.Models.DailyInput;
+import com.example.selene.models.DailyInput;
+import com.example.selene.room.DailyInputDatabase;
 import com.example.selene.async.DeleteAsyncTask;
 import com.example.selene.async.InsertAsyncTask;
 import com.example.selene.async.UpdateAsyncTask;

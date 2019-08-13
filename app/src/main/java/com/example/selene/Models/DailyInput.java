@@ -1,4 +1,4 @@
-package com.example.selene.Models;
+package com.example.selene.models;
 
 
 import android.os.Parcel;

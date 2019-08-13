@@ -1,13 +1,17 @@
 package com.example.selene;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 
-import com.example.selene.Adapters.DailyInputRecyclerAdapter;
-import com.example.selene.Models.DailyInput;
-import com.example.selene.Room.DailyInputRepository;
+import com.example.selene.adapters.DailyInputRecyclerAdapter;
+import com.example.selene.models.DailyInput;
+import com.example.selene.room.DailyInputRepository;
 import com.example.selene.Util.VerticalSpacingItemDecorator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -39,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     private ArrayList<DailyInput> mDailyInputs = new ArrayList<>();
     private DailyInputRecyclerAdapter mDailyInputRecyclerAdapter;
     private DailyInputRepository mDailyInputRepository;
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -76,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
 
         mDailyInputRepository = new DailyInputRepository(this);
 
-        addNewButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        addNewButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, DailyInputActivity.class);
                 startActivity(i);
             }
@@ -90,20 +93,18 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         //get daily inputs from database
         retrieveDailyInputs();
 
-        //Insert fake data to test
-//        insertFakeDailyData();
 
     }
 
-    private void retrieveDailyInputs(){
+    private void retrieveDailyInputs() {
         mDailyInputRepository.retrieveDailyInputTask().observe(this, new Observer<List<DailyInput>>() {
             @Override
             public void onChanged(List<DailyInput> dailyInputs) {
 
-                if(mDailyInputs.size()>0){
+                if (mDailyInputs.size() > 0) {
                     mDailyInputs.clear();
                 }
-                if(dailyInputs != null){
+                if (dailyInputs != null) {
                     mDailyInputs.addAll(dailyInputs);
                 }
                 mDailyInputRecyclerAdapter.notifyDataSetChanged();
@@ -113,19 +114,21 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     }
 
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         mRecyclerView.addItemDecoration(itemDecorator);
+
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);
+
         mDailyInputRecyclerAdapter = new DailyInputRecyclerAdapter(mDailyInputs, this);
         mRecyclerView.setAdapter(mDailyInputRecyclerAdapter);
     }
 
 
-    public void onDailyInputClick (int position){
+    public void onDailyInputClick(int position) {
 
         Log.d(TAG, "onDailyInputClick: clicked: " + position);
 
@@ -137,28 +140,32 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     private ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            //Do not want to support the ability to move items up or down in RecyclerView because they are ordered by date
             return false;
         }
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            //When user swipes to the left, daily input will be deleted
             deleteDailyInput(mDailyInputs.get(viewHolder.getAdapterPosition()));
 
         }
+
+
+        private void deleteDailyInput(DailyInput dailyInput) {
+            //remove from array
+            mDailyInputs.remove(dailyInput);
+            mDailyInputRecyclerAdapter.notifyDataSetChanged();
+            //remove from database
+            mDailyInputRepository.deleteDailyInput(dailyInput);
+        }
+
+
+        public void goToCalendar(View view) {
+            Intent i = new Intent(MainActivity.this, CalendarActivity.class);
+            startActivity(i);
+
+        }
     };
-
-    private void deleteDailyInput(DailyInput dailyInput){
-        //remove from array
-        mDailyInputs.remove(dailyInput);
-        mDailyInputRecyclerAdapter.notifyDataSetChanged();
-        //remove from database
-        mDailyInputRepository.deleteDailyInput(dailyInput);
-    }
-
-
-    public void goToCalendar(View view) {
-        Intent i = new Intent(MainActivity.this, CalendarActivity.class);
-        startActivity(i);
-
-    }
 }
+

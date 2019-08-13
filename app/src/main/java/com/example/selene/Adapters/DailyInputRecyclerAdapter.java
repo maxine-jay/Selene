@@ -1,13 +1,11 @@
-package com.example.selene.Adapters;
-
+package com.example.selene.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.selene.Models.DailyInput;
+import com.example.selene.models.DailyInput;
 import com.example.selene.R;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
             this.mDailyInputs = dailyInputs;
             this.mOnDailyInputListener = onDailyInputListener;
         }
+
 
         @NonNull
         @Override

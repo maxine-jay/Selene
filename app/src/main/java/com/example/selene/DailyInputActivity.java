@@ -23,10 +23,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.room.Room;
-import com.example.selene.Models.DailyInput;
-import com.example.selene.Room.DailyInputDao;
-import com.example.selene.Room.DailyInputDatabase;
-import com.example.selene.Room.DailyInputRepository;
+import com.example.selene.models.DailyInput;
+import com.example.selene.room.DailyInputDao;
+import com.example.selene.room.DailyInputDatabase;
+import com.example.selene.room.DailyInputRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
