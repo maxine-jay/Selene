@@ -66,6 +66,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getString(R.string.add_new));
 
 
         mDailyInputs = new ArrayList<>();
