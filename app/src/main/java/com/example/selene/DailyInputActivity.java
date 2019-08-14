@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.selene.models.DailyInput;
 import com.example.selene.room.DailyInputRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,32 +58,14 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private DailyInputRepository mDailyInputRepository;
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    Intent intentHome = new Intent(DailyInputActivity.this, MainActivity.class);
-                    startActivity(intentHome);
-                    break;
-                case R.id.navigation_add_new:
-
-                    break;
-                case R.id.navigation_calendar:
-                    Intent intentCalendar = new Intent(DailyInputActivity.this, CalendarActivity.class);
-                    startActivity(intentCalendar);
-                    break;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_input);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         mDailyInputs = new ArrayList<>();
@@ -103,10 +87,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //Checkboxes
         bleedingCheckBox = findViewById(R.id.cb_bleeding);
-
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
         //destroys activity on selection of back button

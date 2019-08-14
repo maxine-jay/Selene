@@ -15,16 +15,19 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,36 +48,17 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     private DailyInputRepository mDailyInputRepository;
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    item.setChecked(false);
-                    break;
-                case R.id.navigation_add_new:
-                    Intent intentAddNew = new Intent(MainActivity.this, DailyInputActivity.class);
-                    startActivity(intentAddNew);
-                    break;
-                case R.id.navigation_calendar:
-                    Intent intentCalendar = new Intent(MainActivity.this, CalendarActivity.class);
-                    startActivity(intentCalendar);
-                    break;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mTextMessage = findViewById(R.id.message);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         addNewButton = findViewById(R.id.button_addNew);
 
         mDailyInputRepository = new DailyInputRepository(this);
@@ -93,6 +77,27 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         //get daily inputs from database
         retrieveDailyInputs();
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.action_buttons, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+
+        int id = item.getItemId();
+
+        if(id == R.id.action_calendar){
+            Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
 
     }
 

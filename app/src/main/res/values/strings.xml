@@ -19,6 +19,8 @@
     <string name="title_activity_add_new_daily_input"></string>
     <string name="back">Back</string>
     <string name="note">Note?</string>
+    <string name="calendar">Calendar</string>
+    <string name="settings">Settings</string>
 
 
     <string-array name="emotions_array">
