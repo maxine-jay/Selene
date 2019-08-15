@@ -326,7 +326,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         //sets specified fields for an already existing input. does not allow date change - can assume date is correct.
         //this means that the user cannot enter duplicate entries for one date...
 
-        String titleForEdit = "Edit " + mIncomingDailyInput.getDate();
+        Date dateForTitle = mIncomingDailyInput.getDate();
+        String formattedDate = DailyInput.formatDateToString(dateForTitle);
+        String titleForEdit = "Edit " + formattedDate;
         getSupportActionBar().setTitle(titleForEdit);
 
         String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
@@ -334,7 +336,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                 + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling()+ "\n"
                 + "Note: " + mIncomingDailyInput.getNote();
 
-        dateView.setText(mIncomingDailyInput.getDate().toString());
+        dateView.setText(formattedDate);
         mDate = mIncomingDailyInput.getDate();
         output.setText(viewModeDailyInputData);
         enterNote.setText(mIncomingDailyInput.getNote());

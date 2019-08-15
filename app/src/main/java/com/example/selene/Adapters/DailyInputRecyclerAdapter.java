@@ -7,9 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.selene.models.DailyInput;
 import com.example.selene.R;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,11 +33,12 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
 
             Date date = mDailyInputs.get(i).getDate();
             String formattedDate = DailyInput.formatDateToString(date);
+
             holder.date.setText(formattedDate);
-            holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
-            holder.emotion.setText(mDailyInputs.get(i).getEmotion());
-            holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
-            holder.note.setText(mDailyInputs.get(i).getNote());
+//            holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
+//            holder.emotion.setText(mDailyInputs.get(i).getEmotion());
+//            holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
+//            holder.note.setText(mDailyInputs.get(i).getNote());
 
         }
 
@@ -58,10 +56,10 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
                 super(itemView);
                 //sets views to textviews in item layout using their ids
                 date = itemView.findViewById(R.id.item_date);
-                bleeding = itemView.findViewById(R.id.item_bleeding);
-                emotion = itemView.findViewById(R.id.item_emotion);
-                physical = itemView.findViewById(R.id.item_physical);
-                note = itemView.findViewById(R.id.item_note);
+//                bleeding = itemView.findViewById(R.id.item_bleeding);
+//                emotion = itemView.findViewById(R.id.item_emotion);
+//                physical = itemView.findViewById(R.id.item_physical);
+//                note = itemView.findViewById(R.id.item_note);
 
 
                 this.onDailyInputListener = onDailyInputListener;
