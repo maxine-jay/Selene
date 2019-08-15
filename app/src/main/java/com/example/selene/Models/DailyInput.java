@@ -10,6 +10,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -128,5 +130,12 @@ public class DailyInput implements Parcelable {
         parcel.writeString(emotion);
         parcel.writeString(physicalFeeling);
         parcel.writeString(note);
+    }
+
+    public static String formatDateToString(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = dateFormat.format(date);
+
+        return formattedDate;
     }
 }

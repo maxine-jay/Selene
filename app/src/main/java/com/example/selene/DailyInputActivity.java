@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.selene.models.DailyInput;
 import com.example.selene.room.DailyInputRepository;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -223,8 +226,15 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         calendar.set(Calendar.MILLISECOND, 0);
         mDate = calendar.getTime();
 
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//        String formattedDate = dateFormat.format(mDate);
+
         Log.d(TAG, mDate.toString());
-        dateView.setText(mDate.toString());
+//        dateView.setText(mDate.toString());
+
+
+
+        dateView.setText(DailyInput.formatDateToString(mDate));
 
 
 

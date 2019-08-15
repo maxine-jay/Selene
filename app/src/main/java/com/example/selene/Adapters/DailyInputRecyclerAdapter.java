@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.selene.models.DailyInput;
 import com.example.selene.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRecyclerAdapter.ViewHolder> {
 
@@ -31,7 +34,9 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
 
-            holder.date.setText(mDailyInputs.get(i).getDate().toString());
+            Date date = mDailyInputs.get(i).getDate();
+            String formattedDate = DailyInput.formatDateToString(date);
+            holder.date.setText(formattedDate);
             holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
             holder.emotion.setText(mDailyInputs.get(i).getEmotion());
             holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
