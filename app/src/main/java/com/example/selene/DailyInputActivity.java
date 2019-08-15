@@ -2,12 +2,9 @@ package com.example.selene;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,14 +15,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.selene.models.DailyInput;
 import com.example.selene.room.DailyInputRepository;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +33,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private EditText enterNote;
     private Spinner emotionSpinner, physicalFeelingSpinner;
     private Button selectDateButton, saveButton, editButton;
-    private ImageButton finishNoteButton, backButton;
+    private ImageButton finishNoteButton;
     private CheckBox bleedingCheckBox;
 
     //Vars
@@ -66,7 +59,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.add_new));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         mDailyInputs = new ArrayList<>();
@@ -80,7 +74,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //Buttons
         selectDateButton = findViewById(R.id.btn_selectDate);
-        backButton = findViewById(R.id.btn_back);
+
         saveButton = findViewById(R.id.btn_save);
         editButton = findViewById(R.id.btn_edit);
         enterNote = findViewById(R.id.enterNote);
@@ -92,12 +86,12 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //destroys activity on selection of back button
         //needs to be clear to user that any input will be destroyed
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
 
 
         //SELECT DATE ONCLICKLISTENER
@@ -303,6 +297,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private void setNewDailyInputFields() {
         //sets specified fields for a new input
 
+        getSupportActionBar().setTitle(getString(R.string.add_new));
         String selectDate = "Please Select a Date";
 
         dateView.setText(selectDate);
@@ -320,6 +315,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private void setExistingDailyInputFields() {
         //sets specified fields for an already existing input. does not allow date change - can assume date is correct.
         //this means that the user cannot enter duplicate entries for one date...
+
+        String titleForEdit = "Edit " + mIncomingDailyInput.getDate();
+        getSupportActionBar().setTitle(titleForEdit);
 
         String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
                 + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"

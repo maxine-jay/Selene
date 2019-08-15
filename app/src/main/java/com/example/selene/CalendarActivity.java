@@ -29,6 +29,7 @@ public class CalendarActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.calendar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         observeBleedingDates();
 

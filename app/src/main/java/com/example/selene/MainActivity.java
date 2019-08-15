@@ -11,6 +11,7 @@ import com.example.selene.models.DailyInput;
 import com.example.selene.room.DailyInputRepository;
 import com.example.selene.Util.VerticalSpacingItemDecorator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
 
     //UI components
     private RecyclerView mRecyclerView;
-    private Button addNewButton;
 
 
     //vars
@@ -59,16 +59,20 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         setSupportActionBar(toolbar);
 
         mTextMessage = findViewById(R.id.message);
-        addNewButton = findViewById(R.id.button_addNew);
 
-        mDailyInputRepository = new DailyInputRepository(this);
+        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
 
-        addNewButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        floatingActionButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, DailyInputActivity.class);
                 startActivity(i);
             }
         });
+
+        mDailyInputRepository = new DailyInputRepository(this);
+
 
         //Set up RecyclerView
         mRecyclerView = findViewById(R.id.recyclerView_dailyItems);
@@ -165,12 +169,6 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
             mDailyInputRepository.deleteDailyInput(dailyInput);
         }
 
-
-        public void goToCalendar(View view) {
-            Intent i = new Intent(MainActivity.this, CalendarActivity.class);
-            startActivity(i);
-
-        }
     };
 }
 
