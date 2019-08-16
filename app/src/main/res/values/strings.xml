@@ -21,7 +21,8 @@
     <string name="note">Note?</string>
     <string name="settings">Settings</string>
     <string name ="calendar">Calendar</string>
-
+    <string name="show_bleeding">Show Bleeding</string>
+    <string name="search">Search</string>
 
 
     <string-array name="emotions_array">
