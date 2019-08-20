@@ -35,9 +35,9 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
             String formattedDate = DailyInput.formatDateToString(date);
 
             holder.date.setText(formattedDate);
-//            holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
-//            holder.emotion.setText(mDailyInputs.get(i).getEmotion());
-//            holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
+            holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
+            holder.emotion.setText(mDailyInputs.get(i).getEmotion());
+            holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
 //            holder.note.setText(mDailyInputs.get(i).getNote());
 
         }
@@ -56,9 +56,9 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
                 super(itemView);
                 //sets views to textviews in item layout using their ids
                 date = itemView.findViewById(R.id.item_date);
-//                bleeding = itemView.findViewById(R.id.item_bleeding);
-//                emotion = itemView.findViewById(R.id.item_emotion);
-//                physical = itemView.findViewById(R.id.item_physical);
+                bleeding = itemView.findViewById(R.id.item_bleeding);
+                emotion = itemView.findViewById(R.id.item_emotion);
+                physical = itemView.findViewById(R.id.item_physical);
 //                note = itemView.findViewById(R.id.item_note);
 
 

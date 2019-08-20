@@ -46,9 +46,10 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public int getStateForDate(int year, int month, int day) {
 
-
+                //a variable with today's date
                 Calendar today = Calendar.getInstance();
 
+                //a variable for every day of the scrolling calendar
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);

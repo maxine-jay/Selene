@@ -1,19 +1,13 @@
 package com.example.selene;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
-
 import com.example.selene.adapters.DailyInputRecyclerAdapter;
 import com.example.selene.models.DailyInput;
 import com.example.selene.room.DailyInputRepository;
 import com.example.selene.Util.VerticalSpacingItemDecorator;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -21,15 +15,11 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
     private ArrayList<DailyInput> mDailyInputs = new ArrayList<>();
     private DailyInputRecyclerAdapter mDailyInputRecyclerAdapter;
     private DailyInputRepository mDailyInputRepository;
+    private DailyInput mRecentlyDeletedItem;
 
 
 
@@ -156,19 +147,42 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             //When user swipes to the left, daily input will be deleted
-            deleteDailyInput(mDailyInputs.get(viewHolder.getAdapterPosition()));
+            int position = viewHolder.getAdapterPosition();
+            deleteDailyInput(mDailyInputs.get(position));
 
         }
 
 
         private void deleteDailyInput(DailyInput dailyInput) {
             //remove from array
+            mRecentlyDeletedItem = dailyInput;
             mDailyInputs.remove(dailyInput);
             mDailyInputRecyclerAdapter.notifyDataSetChanged();
             //remove from database
             mDailyInputRepository.deleteDailyInput(dailyInput);
+            showUndoSnackbar();
         }
 
     };
+
+    private void showUndoSnackbar(){
+        View view = findViewById(R.id.main_activity_view);
+        Snackbar snackbar = Snackbar.make(view, "Item Deleted", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Undo", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                undoDelete();
+            }
+        });
+        snackbar.show();
+    }
+
+    private void undoDelete(){
+        mDailyInputs.add(mRecentlyDeletedItem);
+        mDailyInputRepository.insertDailyInputTask(mRecentlyDeletedItem);
+        mDailyInputRecyclerAdapter.notifyDataSetChanged();
+    }
+
+
 }
 
