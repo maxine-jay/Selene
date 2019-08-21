@@ -15,126 +15,147 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/mainLinearLayout"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
+        android:padding="10dp"
+        app:cardBackgroundColor="@color/light_gray"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
+        app:contentPaddingLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 
         <LinearLayout
+            android:id="@+id/mainLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+           >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/dateView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:hint="@string/please_select_a_date" />
+
+                <ImageButton
+                    android:id="@+id/btn_selectDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    app:srcCompat="@drawable/ic_round_calendar_white"
+                    android:background="@null"/>
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cb_bleeding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bleeding" />
+
 
             <TextView
-                android:id="@+id/dateView"
-                android:layout_width="wrap_content"
+                android:id="@+id/enterEmotion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="70"
-                android:hint="Please select a date..." />
+                android:text="@string/please_enter_an_emotional_feeling" />
 
-            <Button
-                android:id="@+id/btn_selectDate"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/emotion_spinner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="30"
-                android:text="@string/select_date" />
+                android:dropDownWidth="match_parent"
+                android:entries="@array/emotions_array"
+                android:spinnerMode="dialog" />
+
+
+            <TextView
+                android:id="@+id/enterPhysical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/please_enter_a_physical_feeling" />
+
+
+            <Spinner
+                android:id="@+id/physical_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/physical_feelings_array"
+                android:spinnerMode="dialog" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <EditText
+                    android:id="@+id/enterNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="80"
+                    android:ems="10"
+                    android:hint="@string/add_note"
+                    android:inputType="textMultiLine" />
+
+                <ImageButton
+                    android:id="@+id/btn_finishNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    app:srcCompat="@drawable/ic_round_done_24px"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save" />
+
+                <Button
+                    android:id="@+id/btn_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit" />
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/testOutput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/cb_bleeding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bleeding" />
-
-
-        <TextView
-            android:id="@+id/enterEmotion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/please_enter_an_emotional_feeling" />
-
-        <Spinner
-            android:id="@+id/emotion_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/emotions_array"
-            android:spinnerMode="dialog" />
-
-
-        <TextView
-            android:id="@+id/enterPhysical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/please_enter_a_physical_feeling" />
-
-
-        <Spinner
-            android:id="@+id/physical_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/physical_feelings_array"
-            android:spinnerMode="dialog" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <EditText
-                android:id="@+id/enterNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="80"
-                android:ems="10"
-                android:hint="Add Note..."
-                android:inputType="textMultiLine" />
-
-            <ImageButton
-                android:id="@+id/btn_finishNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                app:srcCompat="@drawable/ic_round_done_24px" />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/save" />
-
-            <Button
-                android:id="@+id/btn_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit" />
-        </FrameLayout>
-
-
-        <TextView
-            android:id="@+id/testOutput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

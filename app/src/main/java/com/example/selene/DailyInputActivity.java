@@ -2,6 +2,7 @@ package com.example.selene;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,11 +33,11 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private static final String TAG = "DailyInputActivity";
 
     //UI
-    private TextView output, dateView, enterEmotionTextView, enterPhysicalTextView;
+    private TextView dateView, enterEmotionTextView, enterPhysicalTextView;
     private EditText enterNote;
     private Spinner emotionSpinner, physicalFeelingSpinner;
-    private Button selectDateButton, saveButton, editButton;
-    private ImageButton finishNoteButton;
+    private Button saveButton, editButton;
+    private ImageButton selectDateButton, finishNoteButton;
     private CheckBox bleedingCheckBox;
 
     //Vars
@@ -73,7 +74,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         dateView = findViewById(R.id.dateView);
         enterEmotionTextView = findViewById(R.id.enterEmotion);
         enterPhysicalTextView = findViewById(R.id.enterPhysical);
-        output = findViewById(R.id.testOutput);
+
 
         //Buttons
         selectDateButton = findViewById(R.id.btn_selectDate);
@@ -173,12 +174,23 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void saveChanges() {
+        Context context = getApplicationContext();
+        CharSequence text = "Saved!";
+        int duration = Toast.LENGTH_SHORT;
+
         if (isNewDailyInput) {
             saveNewDailyInput();
         } else {
             newInput.setDate(mIncomingDailyInput.getDate());
             updateDailyInput();
         }
+
+        Toast save = Toast.makeText(context, text, duration);
+        save.show();
+        Intent backToMain = new Intent(DailyInputActivity.this, MainActivity.class);
+        startActivity(backToMain);
+
+
     }
 
     private void saveNewDailyInput() {
@@ -338,7 +350,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         dateView.setText(formattedDate);
         mDate = mIncomingDailyInput.getDate();
-        output.setText(viewModeDailyInputData);
+
         enterNote.setText(mIncomingDailyInput.getNote());
 //        output.setBackgroundColor(Color.parseColor("#4CAF50"));
 
@@ -370,7 +382,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         enterPhysicalTextView.setVisibility(View.GONE);
         emotionSpinner.setVisibility(View.GONE);
         physicalFeelingSpinner.setVisibility(View.GONE);
-        output.setVisibility(View.VISIBLE);
         saveButton.setVisibility(View.GONE);
         editButton.setVisibility(View.VISIBLE);
         enterNote.setVisibility(View.GONE);
@@ -417,7 +428,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         } else {
             newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical, mNote);
             mDailyInputs.add(newInput);
-            output.setText(newInput.toString(newInput));
 
             saveChanges();
 
