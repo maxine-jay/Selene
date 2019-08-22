@@ -20,9 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.selene.models.DailyInput;
 import com.example.selene.room.DailyInputRepository;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +30,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private static final String TAG = "DailyInputActivity";
 
     //UI
-    private TextView dateView, enterEmotionTextView, enterPhysicalTextView;
+    private TextView output, dateView, enterEmotionTextView, enterPhysicalTextView;
     private EditText enterNote;
     private Spinner emotionSpinner, physicalFeelingSpinner;
     private Button saveButton, editButton;
@@ -74,6 +71,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         dateView = findViewById(R.id.dateView);
         enterEmotionTextView = findViewById(R.id.enterEmotion);
         enterPhysicalTextView = findViewById(R.id.enterPhysical);
+        output = findViewById(R.id.testOutput);
 
 
         //Buttons
@@ -353,6 +351,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         enterNote.setText(mIncomingDailyInput.getNote());
 //        output.setBackgroundColor(Color.parseColor("#4CAF50"));
+        output.setText(viewModeDailyInputData);
 
         //sets spinners to previously selected values
         setSpinnersToPreviouslySelectedValues();
@@ -369,6 +368,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         emotionSpinner.setVisibility(View.VISIBLE);
         physicalFeelingSpinner.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.GONE);
+        output.setVisibility(View.GONE);
         saveButton.setVisibility(View.VISIBLE);
         enterNote.setVisibility(View.VISIBLE);
         finishNoteButton.setVisibility(View.VISIBLE);
