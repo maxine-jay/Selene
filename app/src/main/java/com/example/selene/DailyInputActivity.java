@@ -23,6 +23,7 @@ import com.example.selene.room.DailyInputRepository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class DailyInputActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
@@ -41,16 +42,16 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private String mBleeding, mEmotion, mPhysical, mNote;
     private Date mDate;
 
-    private ArrayList<DailyInput> mDailyInputs;
+    private List<DailyInput> mDailyInputs;
 
     private String isBleeding = "Bleeding";
     private String isNotBleeding = "Not Bleeding";
+    private String noNoteEntered = "No note entered for today";
 
     private DailyInput newInput, mIncomingDailyInput;
     private boolean isNewDailyInput;
 
     private DailyInputRepository mDailyInputRepository;
-
 
 
     @Override
@@ -76,7 +77,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //Buttons
         selectDateButton = findViewById(R.id.btn_selectDate);
-
         saveButton = findViewById(R.id.btn_save);
         editButton = findViewById(R.id.btn_edit);
         enterNote = findViewById(R.id.enterNote);
@@ -86,17 +86,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         bleedingCheckBox = findViewById(R.id.cb_bleeding);
 
 
-        //destroys activity on selection of back button
-        //needs to be clear to user that any input will be destroyed
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-
-
-        //SELECT DATE ONCLICKLISTENER
         selectDateButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -130,10 +119,12 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                     //hides keyboard and cursor
                     enterNote.setEnabled(false);
                 } else {
-                    mNote = "No note added for " + mDate;
+                    mNote = noNoteEntered;
                     //hides keyboard and cursor
                     enterNote.setEnabled(false);
                 }
+                //must set enabled to account for likelihood that user may edit after clicking finishNoteButton
+                enterNote.setEnabled(true);
 
             }
         });
@@ -158,7 +149,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         if (getIncomingIntent()) {
             //new daily input incoming (should allow for NEW INPUT)
-
             setNewDailyInputFields();
             enableEditMode();
 
@@ -171,37 +161,17 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     }
 
-    private void saveChanges() {
-        Context context = getApplicationContext();
-        CharSequence text = "Saved!";
-        int duration = Toast.LENGTH_SHORT;
-
-        if (isNewDailyInput) {
-            saveNewDailyInput();
-        } else {
-            newInput.setDate(mIncomingDailyInput.getDate());
-            updateDailyInput();
-        }
-
-        Toast save = Toast.makeText(context, text, duration);
-        save.show();
-        Intent backToMain = new Intent(DailyInputActivity.this, MainActivity.class);
-        startActivity(backToMain);
-
-
-    }
 
     private void saveNewDailyInput() {
         mDailyInputRepository.insertDailyInputTask(newInput);
     }
+//
+//    private void updateDailyInput() {
+//
+//        mDailyInputRepository.updateDailyInput(newInput);
+//    }
 
-    private void updateDailyInput() {
 
-        mDailyInputRepository.updateDailyInput(newInput);
-    }
-
-
-    //DATEPICKERDIALOG
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
@@ -217,15 +187,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-//        Long dateFromPicker = new Long(year + month + dayOfMonth);
-//        mDate = (dateFromPicker);
-//
-//        dateView.setText(mDate.toString());
-
-//        mDate = year + month + dayOfMonth;
-//        mDate = new Date(year, month, dayOfMonth);
-
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
@@ -236,18 +197,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         calendar.set(Calendar.MILLISECOND, 0);
         mDate = calendar.getTime();
 
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//        String formattedDate = dateFormat.format(mDate);
 
         Log.d(TAG, mDate.toString());
-//        dateView.setText(mDate.toString());
-
-
 
         dateView.setText(DailyInput.formatDateToString(mDate));
-
-
-
 
     }
 
@@ -343,14 +296,15 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
                 + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"
-                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling()+ "\n"
+                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling() + "\n"
                 + "Note: " + mIncomingDailyInput.getNote();
 
         dateView.setText(formattedDate);
         mDate = mIncomingDailyInput.getDate();
 
-        enterNote.setText(mIncomingDailyInput.getNote());
+//        enterNote.setText(mIncomingDailyInput.getNote());
 //        output.setBackgroundColor(Color.parseColor("#4CAF50"));
+
         output.setText(viewModeDailyInputData);
 
         //sets spinners to previously selected values
@@ -358,6 +312,12 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //sets checkbox to previously selected value
         setBleedingCheckBoxToPreviouslySelectedValue();
+
+        if (mIncomingDailyInput.getNote().equals(noNoteEntered) || mIncomingDailyInput.getNote() == null) {
+            enterNote.setText("");
+        } else {
+            enterNote.setText(mIncomingDailyInput.getNote());
+        }
 
     }
 
@@ -426,11 +386,28 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
             Toast pickDate = Toast.makeText(context, text, duration);
             pickDate.show();
         } else {
+
+            if (mNote == null || mNote.length() == 0) {
+                mNote = noNoteEntered;
+            }
             newInput = new DailyInput(mDate, mBleeding, mEmotion, mPhysical, mNote);
             mDailyInputs.add(newInput);
 
-            saveChanges();
+            saveNewDailyInput();
+            showToastAndGoBackToMainPage();
 
         }
+    }
+
+    private void showToastAndGoBackToMainPage() {
+        Context context = getApplicationContext();
+        CharSequence text = "Saved!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast save = Toast.makeText(context, text, duration);
+        save.show();
+        Intent backToMain = new Intent(DailyInputActivity.this, MainActivity.class);
+        startActivity(backToMain);
+
     }
 }

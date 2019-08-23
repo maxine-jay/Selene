@@ -45,7 +45,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //calendar
-    implementation ('pl.rafman.widgets:scroll-calendar:2.1.0') {
+    implementation('pl.rafman.widgets:scroll-calendar:2.1.0') {
         exclude group: 'com.android.support'
     }
 }
