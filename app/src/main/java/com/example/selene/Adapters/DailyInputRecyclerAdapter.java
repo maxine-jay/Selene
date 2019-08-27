@@ -1,7 +1,10 @@
 package com.example.selene.adapters;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,14 +33,21 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-
             Date date = mDailyInputs.get(i).getDate();
             String formattedDate = DailyInput.formatDateToString(date);
 
             holder.date.setText(formattedDate);
-            holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
-            holder.emotion.setText(mDailyInputs.get(i).getEmotion());
-            holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
+            if(mDailyInputs.get(i).getBleeding().equals("Bleeding")){
+                holder.bleedingIndicator.setVisibility(View.VISIBLE);
+//                holder.bleedingIndicator.setBackgroundColor(Color.parseColor("#ff1744"));
+            }
+            else{
+                holder.bleedingIndicator.setVisibility(View.GONE);
+//                holder.bleedingIndicator.setBackgroundColor(Color.parseColor("#BFE9C0"));
+            }
+//            holder.bleeding.setText(mDailyInputs.get(i).getBleeding());
+//            holder.emotion.setText(mDailyInputs.get(i).getEmotion());
+//            holder.physical.setText(mDailyInputs.get(i).getPhysicalFeeling());
 //            holder.note.setText(mDailyInputs.get(i).getNote().trim());
 
         }
@@ -50,15 +60,17 @@ public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRe
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView date, bleeding, emotion, physical;
+            ImageView bleedingIndicator;
             OnDailyInputListener onDailyInputListener;
 
             public ViewHolder(@NonNull View itemView, OnDailyInputListener onDailyInputListener) {
                 super(itemView);
                 //sets views to textviews in item layout using their ids
                 date = itemView.findViewById(R.id.item_date);
-                bleeding = itemView.findViewById(R.id.item_bleeding);
-                emotion = itemView.findViewById(R.id.item_emotion);
-                physical = itemView.findViewById(R.id.item_physical);
+                bleedingIndicator = itemView.findViewById(R.id.bleeding_indicator);
+//                bleeding = itemView.findViewById(R.id.item_bleeding);
+//                emotion = itemView.findViewById(R.id.item_emotion);
+//                physical = itemView.findViewById(R.id.item_physical);
 //                note = itemView.findViewById(R.id.item_note);
 
 

@@ -312,7 +312,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         Date dateForTitle = mIncomingDailyInput.getDate();
         String formattedDate = DailyInput.formatDateToString(dateForTitle);
-        String titleForEdit = "Edit " + formattedDate;
+        String titleForEdit = formattedDate;
         getSupportActionBar().setTitle(titleForEdit);
 
         String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
