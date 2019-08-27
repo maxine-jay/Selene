@@ -214,8 +214,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
 
         Log.d(TAG, mDate.toString());
-
-        dateView.setText(DailyInput.formatDateToString(mDate));
+        String formattedDate = DailyInput.formatDateToString(mDate);
+        getSupportActionBar().setTitle(formattedDate);
+        dateView.setText(formattedDate);
+//        dateView.setText(DailyInput.formatDateToString(mDate));
 
     }
 
@@ -320,7 +322,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
                 + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling() + "\n"
                 + "Note: " + mIncomingDailyInput.getNote();
 
-        dateView.setText(formattedDate);
+
         mDate = mIncomingDailyInput.getDate();
 
 //        enterNote.setText(mIncomingDailyInput.getNote());
@@ -348,9 +350,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         enterPhysicalTextView.setVisibility(View.VISIBLE);
         emotionSpinner.setVisibility(View.VISIBLE);
         physicalFeelingSpinner.setVisibility(View.VISIBLE);
-        editButton.setVisibility(View.GONE);
+        editButton.hide();
         output.setVisibility(View.GONE);
-        saveButton.setVisibility(View.VISIBLE);
+        saveButton.show();
         enterNote.setVisibility(View.VISIBLE);
         finishNoteButton.setVisibility(View.VISIBLE);
 
@@ -363,8 +365,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         enterPhysicalTextView.setVisibility(View.GONE);
         emotionSpinner.setVisibility(View.GONE);
         physicalFeelingSpinner.setVisibility(View.GONE);
-        saveButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.VISIBLE);
+        saveButton.hide();
+        editButton.show();
         enterNote.setVisibility(View.GONE);
         finishNoteButton.setVisibility(View.GONE);
     }
