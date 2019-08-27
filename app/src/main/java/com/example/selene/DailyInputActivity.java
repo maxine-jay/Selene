@@ -359,6 +359,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void disableEditMode() {
+        dateView.setVisibility(View.GONE);
         selectDateButton.setVisibility(View.GONE);
         bleedingCheckBox.setVisibility(View.GONE);
         enterEmotionTextView.setVisibility(View.GONE);
