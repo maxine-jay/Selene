@@ -2,7 +2,7 @@
 This can be used to create a space between each item in the recycler view
  */
 
-package com.example.selene.Util;
+package com.example.selene.utils;
 
 import android.graphics.Rect;
 import android.view.View;
@@ -21,6 +21,10 @@ public class VerticalSpacingItemDecorator extends RecyclerView.ItemDecoration {
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
 
 
-        outRect.bottom = verticalSpaceHeight;
+//        outRect.bottom = verticalSpaceHeight;
+
+        if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
+            outRect.bottom = verticalSpaceHeight;
+        }
     }
 }

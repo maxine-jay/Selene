@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import com.example.selene.models.DailyInput;
-import com.example.selene.room.DailyInputRepository;
+import com.example.selene.database.DailyInputRepository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -93,6 +95,16 @@ public class CalendarActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            return true;
+        }
+        return false;
     }
 
     public void observeBleedingDates() {

@@ -1,4 +1,4 @@
-package com.example.selene.room;
+package com.example.selene.database;
 
 import androidx.room.TypeConverter;
 

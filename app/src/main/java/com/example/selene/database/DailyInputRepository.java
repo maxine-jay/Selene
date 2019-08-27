@@ -1,17 +1,14 @@
-package com.example.selene.room;
+package com.example.selene.database;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
 import com.example.selene.models.DailyInput;
-import com.example.selene.room.DailyInputDatabase;
 import com.example.selene.async.DeleteAsyncTask;
 import com.example.selene.async.InsertAsyncTask;
 import com.example.selene.async.UpdateAsyncTask;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DailyInputRepository {

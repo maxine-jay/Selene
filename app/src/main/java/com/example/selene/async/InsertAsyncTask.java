@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.selene.models.DailyInput;
-import com.example.selene.room.DailyInputDao;
+import com.example.selene.database.DailyInputDao;
 
 //does database stuff on background thread so wont crash app
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.selene.models.DailyInput;
-import com.example.selene.room.DailyInputRepository;
+import com.example.selene.database.DailyInputRepository;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,8 +37,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private TextView output, dateView, enterEmotionTextView, enterPhysicalTextView;
     private EditText enterNote;
     private Spinner emotionSpinner, physicalFeelingSpinner;
-    private Button saveButton, editButton;
+//    private Button saveButton, editButton;
     private ImageButton selectDateButton, finishNoteButton;
+    private FloatingActionButton saveButton, editButton;
     private CheckBox bleedingCheckBox;
 
     //Vars
@@ -65,6 +69,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+
         mDailyInputs = new ArrayList<>();
         mDailyInputRepository = new DailyInputRepository(this);
 
@@ -84,6 +89,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
         //Checkboxes
         bleedingCheckBox = findViewById(R.id.cb_bleeding);
+
 
 
         selectDateButton.setOnClickListener(
@@ -160,6 +166,15 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            return true;
+        }
+        return false;
+    }
 
 
     private void saveNewDailyInput() {
@@ -209,10 +224,16 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         emotionSpinner.setOnItemSelectedListener(this);
 
         //uses array and spinner item layout to fill spinner
-        ArrayAdapter<CharSequence> emotionsAdapter = ArrayAdapter.createFromResource(this,
+       ArrayAdapter<CharSequence> emotionsAdapter = ArrayAdapter.createFromResource(this,
                 R.array.emotions_array, R.layout.spinner_row_item);
+
+
+
         emotionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         emotionSpinner.setAdapter(emotionsAdapter);
+
+
+
 
         physicalFeelingSpinner = findViewById(R.id.physical_spinner);
         physicalFeelingSpinner.setOnItemSelectedListener(this);
