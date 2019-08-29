@@ -317,16 +317,15 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         String titleForEdit = formattedDate;
         getSupportActionBar().setTitle(titleForEdit);
 
-        String viewModeDailyInputData = mIncomingDailyInput.getBleeding() + "\n"
-                + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"
-                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling() + "\n"
-                + "Note: " + mIncomingDailyInput.getNote();
+//        String viewModeDailyInputData = "Data logged for " + formattedDate + "\n"
+//                + mIncomingDailyInput.getBleeding() + "\n"
+//                + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"
+//                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling() + "\n"
+//                + "Note: " + mIncomingDailyInput.getNote();
 
+        String viewModeDailyInputData = DailyInput.toString(mIncomingDailyInput);
 
         mDate = mIncomingDailyInput.getDate();
-
-//        enterNote.setText(mIncomingDailyInput.getNote());
-//        output.setBackgroundColor(Color.parseColor("#4CAF50"));
 
         output.setText(viewModeDailyInputData);
 
@@ -433,5 +432,9 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         Intent backToMain = new Intent(DailyInputActivity.this, MainActivity.class);
         startActivity(backToMain);
 
+    }
+
+    protected void onStop(){
+        super.onStop();
     }
 }

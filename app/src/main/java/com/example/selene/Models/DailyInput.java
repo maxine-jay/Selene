@@ -106,9 +106,8 @@ public class DailyInput implements Parcelable {
         this.note = note;
     }
 
-    public String toString(DailyInput dailyInput) {
-        return "Date: " + dailyInput.getDate()
-                + "\n" + dailyInput.getBleeding()
+    public static String toString(DailyInput dailyInput) {
+        return " Bleeding: " + dailyInput.getBleeding()
                 + "\n Emotional feeling: " + dailyInput.getEmotion()
                 + "\n Physical Feeling: " + dailyInput.getPhysicalFeeling()
                 + "\n Note: " + dailyInput.getNote();
