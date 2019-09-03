@@ -29,9 +29,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/*
+DailyInputActivity is linked with activity_daily_input and contains the logic for inputting a new
+daily input or viewing a previously inputted daily input depending on interaction with
+MainActivity
+ */
 
 public class DailyInputActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
+    //a tag to be used when logging tests
     private static final String TAG = "DailyInputActivity";
 
     //declare UI features
@@ -168,7 +174,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     }
 
     /*
-    showDatePickerDialog() displayes the date picker which the user can use to select a date
+    showDatePickerDialog() displays the date picker which the user can use to select a date
     The maximum date is set to today's date because it should not be possible for users to input
     data relating to future dates which they have not experienced yet
      */
@@ -355,9 +361,11 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         String titleForEdit = formattedDate;
         getSupportActionBar().setTitle(titleForEdit);
 
+       dateView.setHint("Edit data for " + formattedDate);
+
         mDate = mIncomingDailyInput.getDate();
 
-        //
+        //creates a string from the incoming daily input
         String viewModeDailyInputData = DailyInput.toString(mIncomingDailyInput);
         output.setText(viewModeDailyInputData);
 
@@ -423,7 +431,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
      */
     private void checkDateAndSave() {
         Context context = getApplicationContext();
-        CharSequence text = "You must pick a date!";
+        CharSequence text = (CharSequence) getString(R.string.pick_date);
         int duration = Toast.LENGTH_SHORT;
 
         if (mDate == null) {
@@ -451,7 +459,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     //displays a toast which says "saved!" and navigates back to the MainActivity
     private void showToastAndGoBackToMainPage() {
         Context context = getApplicationContext();
-        CharSequence text = "Saved!";
+        CharSequence text = (CharSequence) getString(R.string.saved);
         int duration = Toast.LENGTH_SHORT;
 
         Toast save = Toast.makeText(context, text, duration);

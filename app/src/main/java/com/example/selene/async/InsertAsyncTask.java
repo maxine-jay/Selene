@@ -6,7 +6,7 @@ import android.util.Log;
 import com.example.selene.models.DailyInput;
 import com.example.selene.database.DailyInputDao;
 
-//does database stuff on background thread so wont crash app
+//inserts a daily input item into the database on a background thread to avoid the database crashing
 
 public class InsertAsyncTask extends AsyncTask<DailyInput, Void, Void> {
 

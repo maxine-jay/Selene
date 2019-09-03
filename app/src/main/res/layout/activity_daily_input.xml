@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="30"
-                    app:srcCompat="@drawable/ic_round_calendar_pink"
+                    app:srcCompat="@drawable/ic_round_calendar_black"
                     android:background="@null"/>
             </LinearLayout>
 

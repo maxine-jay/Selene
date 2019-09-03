@@ -6,7 +6,8 @@ import android.util.Log;
 import com.example.selene.models.DailyInput;
 import com.example.selene.database.DailyInputDao;
 
-//does database stuff on background thread so wont crash app
+//deletes a daily input item from the database on a background thread to avoid the database crashing
+
 
 public class DeleteAsyncTask extends AsyncTask<DailyInput, Void, Void> {
 

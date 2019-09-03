@@ -5,7 +5,6 @@
     <string name="title_notifications">Notifications</string>
 
     //Custom Strings
-
     <string name="add_new">Add New</string>
     <string name="please_enter_an_emotional_feeling">Please enter an emotional feeling...</string>
     <string name="please_enter_a_physical_feeling">Please enter a physical feeling...</string>
@@ -25,8 +24,11 @@
     <string name="search">Search</string>
     <string name="add_note">Add Note...</string>
     <string name="please_select_a_date">Please select a date...</string>
+    <string name="pick_date">You must pick a date!</string>
+    <string name="saved">Saved!</string>
 
 
+    // Array of emotions values
     <string-array name="emotions_array">
         <item>Happy</item>
         <item>Content</item>
@@ -52,6 +54,7 @@
 
     </string-array>
 
+    //array of physical feelings values
     <string-array name="physical_feelings_array">
         <item>Headache</item>
         <item>Low Energy</item>

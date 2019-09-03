@@ -17,24 +17,36 @@ import pl.rafman.scrollcalendar.contract.DateWatcher;
 import pl.rafman.scrollcalendar.contract.MonthScrollListener;
 import pl.rafman.scrollcalendar.contract.OnDateClickListener;
 import pl.rafman.scrollcalendar.data.CalendarDay;
+/**
+ * ScrollCalendar was created by rafal.manka
+ *
+ * https://github.com/RafalManka/ScrollCalendar
+ */
+
+/*
+  CalendarActivity displays the ScrollCalendar and contains methods for interacting
+  with the calendar
+ */
 
 public class CalendarActivity extends AppCompatActivity {
 
     DailyInputRepository mDailyInputRepository = new DailyInputRepository(this);
     List<DailyInput> mDailyInputs = new ArrayList<>();
 
+    private static final String CALENDAR = "Calendar";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        //set up toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.calendar));
+        getSupportActionBar().setTitle(CALENDAR);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         observeBleedingDates();
-
 
         final ScrollCalendar scrollCalendar = findViewById(R.id.scrollCalendar);
         scrollCalendar.setOnDateClickListener(new OnDateClickListener() {
@@ -44,6 +56,7 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
+        //allows appearance of dates to be manipulated
         scrollCalendar.getAdapter().setDateWatcher(new DateWatcher() {
             @Override
             public int getStateForDate(int year, int month, int day) {
@@ -64,10 +77,11 @@ public class CalendarActivity extends AppCompatActivity {
 
 
                 if (year == today.get(Calendar.YEAR) && month == today.get(Calendar.MONTH) && day == today.get(Calendar.DAY_OF_MONTH)) {
-
+                    //shows a circle outline around today's date
                     return CalendarDay.TODAY;
                 }
                 else {
+                    //shows a green circle around dates which have been marked as bleeding
                     for (DailyInput dailyInput : mDailyInputs) {
                         if (dailyInput.getDate().equals(calendarDate)) {
                             return CalendarDay.SELECTED;
@@ -75,7 +89,7 @@ public class CalendarActivity extends AppCompatActivity {
                     }
                 }
 
-
+                //show regular date
                 return CalendarDay.DEFAULT;
             }
         });
@@ -83,13 +97,13 @@ public class CalendarActivity extends AppCompatActivity {
         scrollCalendar.setMonthScrollListener(new MonthScrollListener() {
             @Override
             public boolean shouldAddNextMonth(int lastDisplayedYear, int lastDisplayedMonth) {
-                // return false if you don't want to show later months
+                // returns false so as not to show future months
                 return false;
             }
 
             @Override
             public boolean shouldAddPreviousMonth(int firstDisplayedYear, int firstDisplayedMonth) {
-                // return false if you don't want to show previous months
+                // returns true to show previous months
                 return true;
             }
         });
@@ -97,6 +111,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
+    //overrides animated transition for home button
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == android.R.id.home){
@@ -107,6 +122,8 @@ public class CalendarActivity extends AppCompatActivity {
         return false;
     }
 
+    //retrieves all dates marked as bleeding from the database
+    //populates mDailyInputs with ONLY bleeding dates
     public void observeBleedingDates() {
         mDailyInputRepository.retrieveBleedingInputTask().observe(this, new Observer<List<DailyInput>>() {
             @Override
