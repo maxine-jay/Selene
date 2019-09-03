@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,7 +36,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private TextView output, dateView, enterEmotionTextView, enterPhysicalTextView;
     private EditText enterNote;
     private Spinner emotionSpinner, physicalFeelingSpinner;
-//    private Button saveButton, editButton;
     private ImageButton selectDateButton, finishNoteButton;
     private FloatingActionButton saveButton, editButton;
     private CheckBox bleedingCheckBox;
@@ -56,6 +54,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private boolean isNewDailyInput;
 
     private DailyInputRepository mDailyInputRepository;
+
+    private int mode;
 
 
     @Override
@@ -217,7 +217,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         String formattedDate = DailyInput.formatDateToString(mDate);
         getSupportActionBar().setTitle(formattedDate);
         dateView.setText(formattedDate);
-//        dateView.setText(DailyInput.formatDateToString(mDate));
 
     }
 
@@ -281,7 +280,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
             newInput.setBleeding(mIncomingDailyInput.getBleeding());
             newInput.setEmotion(mIncomingDailyInput.getEmotion());
             newInput.setPhysicalFeeling(mIncomingDailyInput.getPhysicalFeeling());
-
             isNewDailyInput = false;
             return false;
         }
@@ -317,12 +315,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         String titleForEdit = formattedDate;
         getSupportActionBar().setTitle(titleForEdit);
 
-//        String viewModeDailyInputData = "Data logged for " + formattedDate + "\n"
-//                + mIncomingDailyInput.getBleeding() + "\n"
-//                + "Emotional feeling: " + mIncomingDailyInput.getEmotion() + "\n"
-//                + "Physical feeling: " + mIncomingDailyInput.getPhysicalFeeling() + "\n"
-//                + "Note: " + mIncomingDailyInput.getNote();
-
         String viewModeDailyInputData = DailyInput.toString(mIncomingDailyInput);
 
         mDate = mIncomingDailyInput.getDate();
@@ -355,6 +347,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         enterNote.setVisibility(View.VISIBLE);
         finishNoteButton.setVisibility(View.VISIBLE);
 
+        mode = 0;
+
     }
 
     private void disableEditMode() {
@@ -369,6 +363,8 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         editButton.show();
         enterNote.setVisibility(View.GONE);
         finishNoteButton.setVisibility(View.GONE);
+
+        mode = 1;
     }
 
     private void setSpinnersToPreviouslySelectedValues() {

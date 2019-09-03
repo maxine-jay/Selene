@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
 
     //UI components
     private RecyclerView mRecyclerView;
+    private Toolbar toolbar;
+    private FloatingActionButton addNewInputFAB;
 
 
     //vars
@@ -46,14 +48,14 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mTextMessage = findViewById(R.id.message);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
+        addNewInputFAB = findViewById(R.id.add_new_input_fab);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener(){
+        addNewInputFAB.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         return true;
     }
 
+    /*
+    onOptionsItemSelected is used to define what happens when the user presses on a button on the toolbar
+    In this case, it deals only with the calendar button and takes the user to the CalendarActivity
+    If more buttons were to be added, a switch statement/if else statement could be used
+     */
     @Override
     public boolean onOptionsItemSelected (MenuItem item){
 
@@ -95,7 +102,10 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         return super.onOptionsItemSelected(item);
 
     }
+    /*
+    retrieveDailyInputs() retrieves all items from the database
 
+     */
     private void retrieveDailyInputs() {
         mDailyInputRepository.retrieveDailyInputTask().observe(this, new Observer<List<DailyInput>>() {
             @Override
@@ -137,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
         startActivity(intent);
     }
 
-    private ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+    private ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             //Do not want to support the ability to move items up or down in RecyclerView because they are ordered by date

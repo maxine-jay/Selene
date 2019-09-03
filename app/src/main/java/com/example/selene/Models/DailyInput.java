@@ -28,6 +28,9 @@ public class DailyInput implements Parcelable {
     @ColumnInfo(name = "note")
     private String note;
 
+    @Ignore
+    private static final String DATE_FORMAT = "dd/MM/yyyy";
+
 
     public DailyInput(Date date, String bleeding, String emotion, String physicalFeeling, String note) {
 
@@ -129,7 +132,7 @@ public class DailyInput implements Parcelable {
     }
 
     public static String formatDateToString(Date date){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         String formattedDate = dateFormat.format(date);
 
         return formattedDate;
