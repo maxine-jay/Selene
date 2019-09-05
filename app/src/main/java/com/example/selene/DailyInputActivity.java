@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/*
+/**
 DailyInputActivity is linked with activity_daily_input and contains the logic for inputting a new
 daily input or viewing a previously inputted daily input depending on interaction with
 MainActivity
@@ -39,7 +39,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
 
     //a tag to be used when logging tests
     private static final String TAG = "DailyInputActivity";
-
+    private static final String IS_BLEEDING = "Bleeding";
+    private static final String NOT_BLEEDING = "Not Bleeding";
+    private static final String NO_NOTE_ENTERED = "No note entered for today";
+    private static final String BLANK_STRING = "";
     //declare UI features
     private TextView output, dateView, enterEmotionTextView, enterPhysicalTextView;
     private EditText enterNote;
@@ -47,15 +50,10 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
     private ImageButton selectDateButton, finishNoteButton;
     private FloatingActionButton saveButton, editButton;
     private CheckBox bleedingCheckBox;
-
     //declare variables
     private String mBleeding, mEmotion, mPhysical, mNote;
     private Date mDate;
     private List<DailyInput> mDailyInputs;
-    private static final String IS_BLEEDING = "Bleeding";
-    private static final String NOT_BLEEDING = "Not Bleeding";
-    private static final String NO_NOTE_ENTERED = "No note entered for today";
-    private static final String BLANK_STRING = "";
     private DailyInput newInput, mIncomingDailyInput;
     private DailyInputRepository mDailyInputRepository;
     private int mode;
@@ -211,7 +209,6 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         mDate = calendar.getTime();
 
 
-
         String formattedDate = DailyInput.formatDateToString(mDate);
         //for testing
         Log.d(TAG, formattedDate);
@@ -361,7 +358,7 @@ public class DailyInputActivity extends AppCompatActivity implements DatePickerD
         String titleForEdit = formattedDate;
         getSupportActionBar().setTitle(titleForEdit);
 
-       dateView.setHint("Edit data for " + formattedDate);
+        dateView.setHint("Edit data for " + formattedDate);
 
         mDate = mIncomingDailyInput.getDate();
 

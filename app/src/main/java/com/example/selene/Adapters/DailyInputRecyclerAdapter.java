@@ -11,11 +11,13 @@ import com.example.selene.R;
 import com.example.selene.models.DailyInput;
 import java.util.ArrayList;
 import java.util.Date;
-/*
+
+/**
 An Adapter class is necessary when using a RecyclerView
 This binds data from the mDailyInputs array to the views that are displayed in the RecyclerView on the MainActivity
 It uses the layout_daily_input_item layout when creating each view
  */
+
 public class DailyInputRecyclerAdapter extends RecyclerView.Adapter<DailyInputRecyclerAdapter.ViewHolder> {
 
     private ArrayList<DailyInput> mDailyInputs;

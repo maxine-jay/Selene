@@ -23,7 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
 MainActivity is linked with the layout file activity_main.xml
 It contains methods to set up the RecyclerVew and methods that are used to interact with the ReyclerView
  */

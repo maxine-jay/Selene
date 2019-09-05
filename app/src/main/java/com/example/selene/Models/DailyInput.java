@@ -11,12 +11,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/*
+/**
 DailyInput is the model used for creating DailyInput objects
 It is also an Entity in the DailyInputDatabase
 It contains a custom toString() method and a method to format the date to a String for display purposes
 It contains methods to implement Parcelable which allows DailyInput objects to be parsed by the database
  */
+
 @Entity(tableName = "DailyInputTable")
 public class DailyInput implements Parcelable {
 

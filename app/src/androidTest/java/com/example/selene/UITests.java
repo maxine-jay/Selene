@@ -18,6 +18,9 @@ import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
 
+/**
+ * UITests tests user interaction using Espresso tests
+ */
 
 public class UITests {
 
@@ -140,6 +143,7 @@ public class UITests {
                 .check(matches(isDisplayed()));
 
     }
+
     @Test
     public void clickOnSaveButtonAfterEdit_savedToastIsDisplayed(){
         onView(withId(R.id.recyclerView_dailyItems))

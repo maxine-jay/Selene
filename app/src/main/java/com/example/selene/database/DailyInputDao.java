@@ -13,7 +13,7 @@ import com.example.selene.models.DailyInput;
 
 import java.util.List;
 
-/*
+/**
  * This class is a data access object and contains methods which are used to access the application’s database.
  */
 @Dao

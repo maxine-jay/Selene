@@ -11,7 +11,7 @@ import com.example.selene.async.UpdateAsyncTask;
 
 import java.util.List;
 
-/*
+/**
 DailyInputRepository acts as an intermediary between the DailyInputActivity and the
 database. It helps to keep the code clean, rather than calling AsyncTask methods straight
 from the DailyInputActivity.

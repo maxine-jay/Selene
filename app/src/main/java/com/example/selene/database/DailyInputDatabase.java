@@ -11,7 +11,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.selene.models.DailyInput;
 
-/*
+/**
 DailyInputDatabase extends RoomDatabase
 This class builds the database
 Contains an abstract reference to the Dao

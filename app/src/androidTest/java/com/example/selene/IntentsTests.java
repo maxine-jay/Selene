@@ -14,6 +14,9 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithK
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.CoreMatchers.not;
 
+/**
+ * IntentsTests tests Intents used within the application
+ */
 public class IntentsTests {
 
     @Rule
