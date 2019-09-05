@@ -22,7 +22,6 @@ import pl.rafman.scrollcalendar.data.CalendarDay;
  *
  * https://github.com/RafalManka/ScrollCalendar
  */
-
 /*
   CalendarActivity displays the ScrollCalendar and contains methods for interacting
   with the calendar

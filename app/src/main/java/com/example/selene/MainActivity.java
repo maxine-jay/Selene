@@ -27,6 +27,7 @@ import java.util.List;
 MainActivity is linked with the layout file activity_main.xml
 It contains methods to set up the RecyclerVew and methods that are used to interact with the ReyclerView
  */
+
 public class MainActivity extends AppCompatActivity implements DailyInputRecyclerAdapter.OnDailyInputListener {
 
     private static final String TAG = "MainActivity";
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements DailyInputRecycle
 
 
     //vars
-//    private TextView mTextMessage;
+
     private ArrayList<DailyInput> mDailyInputs = new ArrayList<>();
     private DailyInputRecyclerAdapter mDailyInputRecyclerAdapter;
     private DailyInputRepository mDailyInputRepository;

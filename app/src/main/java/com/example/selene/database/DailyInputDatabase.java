@@ -17,6 +17,7 @@ This class builds the database
 Contains an abstract reference to the Dao
 Contains two migrations which were used to make changes to the database tables
  */
+
 @Database(entities = {DailyInput.class}, version = 3)
 @TypeConverters({Converters.class})
 public abstract class DailyInputDatabase extends RoomDatabase {

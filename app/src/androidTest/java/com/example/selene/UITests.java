@@ -1,25 +1,16 @@
 package com.example.selene;
 
-import android.app.DatePickerDialog;
-import android.widget.DatePicker;
-
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
-
 import com.example.selene.utils.ToastMatcher;
-
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
-
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -32,6 +23,7 @@ public class UITests {
 
     @Rule
     public ActivityTestRule<MainActivity> mMainActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
 
     final int RECYCLERVIEW_POSITION = 1;
 
@@ -159,26 +151,6 @@ public class UITests {
         onView(withText(R.string.saved)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
-    @Test
-    public void clickOnSaveButtonAfterNewInput_savedToastIsDisplayed(){
-
-        int year = 2019;
-        int monthOfYear = 2;
-        int dayOfMonth = 10;
-
-        onView(withId(R.id.add_new_input_fab))
-                .perform(click());
-        onView(withId(R.id.btn_selectDate))
-                .perform(click());
-
-        onData(withClassName(Matchers.equalTo(DatePickerDialog.class.getName()))).perform(PickerActions.setDate(year, monthOfYear, dayOfMonth));
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withId(R.id.btn_save))
-                .perform(click());
-        onView(withText(R.string.saved)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));
-
-    }
 
     @Test
     public void saveButtonInViewMode_notDisplayed(){
@@ -207,11 +179,14 @@ public class UITests {
     }
 
     @Test
-    public void editDailyInputInViewMode_isDisplayed(){
+    public void editDailyInputButtonInViewMode_isDisplayedAndClickable() {
         onView(withId(R.id.recyclerView_dailyItems))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(RECYCLERVIEW_POSITION, click()));
         onView(withId(R.id.btn_edit))
                 .check(matches(isDisplayed()));
+        onView(withId(R.id.btn_edit))
+                .perform(click());
     }
+
 
 }
