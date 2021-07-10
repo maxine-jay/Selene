@@ -39,9 +39,9 @@ appear to the right of the calendar button and in the toolbar
     previous months in this calendar. You will see green circles around dates that have been logged as bleeding and a grey
     circle outline around today's date
 
-** How to close the Application
+##How to close the Application
 Close the application by clicking the 'Stop' button in Android Studio/closing the emulator/navigated 'Home' on your device
 
-**List of Errors that may occur
+##List of Errors that may occur
 There is currently an error displaying bleeding dates on the calendar. If consecutive days are logged, the first day
 disappears. This should not affect any interaction with the application
