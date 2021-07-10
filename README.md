@@ -7,8 +7,8 @@ to promote body literacy.
 
 It is currently necessary to run the application from Android Studio, either using an emulator or an Android device.
 
-Android Studio can be downloaded from this link: [Link] (https://developer.android.com/studio)
-Guidelines for using an emulator can be found here: [Link] (https://developer.android.com/studio/run/emulator)
+Android Studio can be downloaded from this link: (https://developer.android.com/studio)
+Guidelines for using an emulator can be found here: (https://developer.android.com/studio/run/emulator)
 
 If you are using an Android device, you can connect your device using a USB cable.
 
